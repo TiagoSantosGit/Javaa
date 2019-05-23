@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Page HTML</title>
+</head>
+<body>
+	<h1>teste java script</h1>
+
+	<input type="text" id="nome" name="nome" style="border-radius: 15px;">
+	<button onclick="mostrarNome()" style="border-radius: 15px;">Mostrar nome</button>
+	<button onclick="confirmacao()" style="border-radius: 15px;">Confirmação</button>
+
+	<script type="text/javascript">
+		function mostrarNome() {
+			var nome = document.getElementById("nome").value;
+			alert("Meu nome é " + nome);
+		}
+		function confirmacao() {
+			if (confirm("Tem certeza que deseja excluir essa categoria?")) {
+			      location.href="https:\\www.google.com";
+			   }
+		}
+	</script>
+
+</body>
+</html>
