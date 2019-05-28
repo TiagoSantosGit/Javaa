@@ -123,7 +123,9 @@ public class UserPosDAO {
 	public List<BeanUserfone> listaUserFone(Long idUser) {
 		List<BeanUserfone> list = new ArrayList<BeanUserfone>();
 
-		String sql = "select nome, numero, email from telefoneuser as fone inner join userposjava as userp on fone.usuariopessoa - userp.id where userp.id = " + idUser;;
+		String sql = "select nome, numero, email from telefoneuser as fone inner join userposjava as userp on fone.usuariopessoa - userp.id where userp.id = "
+				+ idUser;
+		;
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet resultado = statement.executeQuery();
@@ -138,6 +140,30 @@ public class UserPosDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void deleteFonesPorUser(Long idUser) {
+
+		String sqlFone = "delete from telefoneuser where usuariopessoa =" + idUser;
+		String sqlUser = "delete from userposjava where id = " + idUser;
+
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlFone);
+			preparedStatement.executeQuery();
+			connection.commit();
+
+			preparedStatement = connection.prepareStatement(sqlUser);
+			preparedStatement.executeQuery();
+			connection.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException ee) {
+				ee.printStackTrace();
+			}
+		}
+
 	}
 
 }

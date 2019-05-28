@@ -71,7 +71,7 @@ public class TesteBancoJDBC {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void initListarFoneUser() {
 		UserPosDAO dao = new UserPosDAO();
@@ -81,6 +81,16 @@ public class TesteBancoJDBC {
 				System.out.println(beanuserfone);
 				System.out.println("---------------");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void initDeleteFoneUser() {
+		UserPosDAO dao = new UserPosDAO();
+		try {
+			dao.deleteFonesPorUser(16L);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -41,7 +41,9 @@ insert into telefoneuser(numero, tipo, usuariopessoa) values('(45) 9 9979-5800',
 
 select * from as fone inner join userposjava as userp on fone.usuariopessoa = userp.id where userp.id = 15;
 
+delete from userposjava where id = 16;
 
+select * from telefoneuser where usuariopessoa = 16;
 
 
 
