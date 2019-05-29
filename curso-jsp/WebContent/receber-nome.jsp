@@ -36,5 +36,15 @@ out.print(nome);
 <jsp:getProperty property="ano" name="calcula"/>
 <jsp:getProperty property="sexo" name="calcula"/>
 
+<br>
+<%--usando expressões --%>
+Nome : ${param.nome}
+<br>
+Ano: ${param.ano}
+<br>
+Idade: ${param.idade}
+<br>
+${sessionScope.user} 
+
 </body>
 </html>
