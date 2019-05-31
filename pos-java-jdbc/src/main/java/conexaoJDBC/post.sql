@@ -15,7 +15,7 @@ start 7;
 
 select * from userposjava;
 
-alter table userposjava alter column id set defalut nextval('usersequence'::regclass);
+alter table userposjava alter column id set default nextval('usersequence'::regclass);
 
 
 alter table userposjava add unique (id);
@@ -35,11 +35,11 @@ minvalue 1
 maxvalue 9223372036854775807
 start 7;
 
-alter table telefoneuser alter column id set defalut nextval('telefoneusersequence'::regclass);
+alter table telefoneuser alter column id set default nextval('telefoneusersequence'::regclass);
 
-insert into telefoneuser(numero, tipo, usuariopessoa) values('(45) 9 9979-5800', 'celular', 16);
+insert into telefoneuser(numero, tipo, usuariopessoa) values('(45) 9 9979-5800', 'celular', 1);
 
-select * from as fone inner join userposjava as userp on fone.usuariopessoa = userp.id where userp.id = 15;
+select * from telefoneuser as fone inner join userposjava as userp on fone.usuariopessoa = userp.id where userp.id = 1;
 
 delete from userposjava where id = 16;
 
