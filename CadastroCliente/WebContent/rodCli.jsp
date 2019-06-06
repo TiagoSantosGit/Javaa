@@ -3,15 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-body {
-	background:fuchsia;
-}
-</style>
+
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
-
+<h1>=============================================</h1>
 </body>
 </html>

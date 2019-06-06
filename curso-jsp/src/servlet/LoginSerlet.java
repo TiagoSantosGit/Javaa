@@ -22,7 +22,6 @@ public class LoginSerlet extends HttpServlet {
 	 */
 	public LoginSerlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -31,7 +30,6 @@ public class LoginSerlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -41,7 +39,6 @@ public class LoginSerlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		// doGet(request, response);
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
