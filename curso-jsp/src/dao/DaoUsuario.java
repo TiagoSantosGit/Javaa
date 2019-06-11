@@ -38,7 +38,7 @@ public class DaoUsuario {
 		List<BeanCursoJsp> listar = new ArrayList<BeanCursoJsp>();
 		String sql = "select * from usuario";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery(sql);
+		ResultSet resultSet = statement.executeQuery();
 		while (resultSet.next()) {
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
 			beanCursoJsp.setLogin(resultSet.getString("login"));
@@ -72,11 +72,30 @@ public class DaoUsuario {
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if (resultSet.next()) {
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
+			beanCursoJsp.setId(resultSet.getLong("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			return beanCursoJsp;
 		}
 		return null;
+	}
+
+	public void atualizar(BeanCursoJsp usuario) {
+
+		try {
+			String sql = "update usuario set login = ?, senha = ?, where id = " + usuario.getId();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, usuario.getLogin());
+			preparedStatement.setString(2, usuario.getSenha());
+			connection.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (Exception ee) {
+				ee.printStackTrace();
+			}
+		}
 	}
 
 }

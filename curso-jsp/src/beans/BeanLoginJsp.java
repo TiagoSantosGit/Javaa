@@ -2,15 +2,16 @@ package beans;
 
 public class BeanLoginJsp {
 
+	private Long codigo;
 	private String login;
 	private String senha;
 
-	public boolean validarLoginSenha(String login, String senha) {
-		if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
-			return true;
-		} else {
-			return false;
-		}
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getLogin() {

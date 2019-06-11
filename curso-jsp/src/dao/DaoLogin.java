@@ -19,7 +19,7 @@ public class DaoLogin {
 
 		String sql = "select * from usuario where login = '" + login + "' and senha = '" + senha + "'";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery(sql);
+		ResultSet resultSet = statement.executeQuery();
 		if (resultSet.next()) {
 			return true;
 		} else {

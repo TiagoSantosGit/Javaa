@@ -14,8 +14,7 @@
 		<table>
 			<tr>
 				<td>Código:</td>
-				<td><input type="text" id="id" name="id"
-					value="${user.id}"></td>
+				<td><input type="text" id="id" name="id" value="${user.id}"></td>
 			</tr>
 			<tr>
 				<td>Login:</td>
@@ -35,8 +34,9 @@
 			<tr>
 				<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
 				<td><c:out value="${user.senha}"></c:out></td>
-				<td><a href="salvarUsuario?acao=delete$user=${user.login}">Excluir</a></td>
-				<td><a href="salvarUsuario?acao=editar$user=${user.login}">Editar</a></td>
+				<td><a href="salvarUsuario?acao=delete&user=${user.login}">Excluir</a></td>
+				<td><a href="salvarUsuario?acao=editar&user=${user.login}">Editar</a></td>
+			</tr>
 		</c:forEach>
 	</table>
 </body>
