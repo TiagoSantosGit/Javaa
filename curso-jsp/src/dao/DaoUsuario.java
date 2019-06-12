@@ -41,6 +41,7 @@ public class DaoUsuario {
 		ResultSet resultSet = statement.executeQuery();
 		while (resultSet.next()) {
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
+			beanCursoJsp.setId(resultSet.getLong("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			listar.add(beanCursoJsp);
@@ -83,10 +84,12 @@ public class DaoUsuario {
 	public void atualizar(BeanCursoJsp usuario) {
 
 		try {
-			String sql = "update usuario set login = ?, senha = ?, where id = " + usuario.getId();
+			String sql = "update usuario set login = ?, senha = ? where id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
+			preparedStatement.setLong(3, usuario.getId());
+			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

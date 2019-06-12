@@ -46,9 +46,8 @@ public class ServletUsuario extends HttpServlet {
 				if (acao.equalsIgnoreCase("editar")) {
 					BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
 					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
-					request.setAttribute("user", daoUsuario.listar());
+					request.setAttribute("user", beanCursoJsp);
 					view.forward(request, response);
-
 				}
 			}
 		} catch (Exception e) {
@@ -67,16 +66,14 @@ public class ServletUsuario extends HttpServlet {
 		String senha = request.getParameter("senha");
 
 		BeanCursoJsp usuario = new BeanCursoJsp();
-		usuario.setId(!id.isEmpty()? Long.parseLong(id) : 0);
+		usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
-		if(id == null || id.isEmpty()) {
+		if (id == null || id.isEmpty()) {
 			daoUsuario.Salvar(usuario);
-		}else {
+		} else {
 			daoUsuario.atualizar(usuario);
 		}
-		
-		
 		try {
 			RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
 			request.setAttribute("usuarios", daoUsuario.listar());
@@ -84,7 +81,6 @@ public class ServletUsuario extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

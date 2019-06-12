@@ -12,7 +12,7 @@
 		<div class="form">
 			<form action="LoginSerlet" method="post">
 				Login: <input type="text" id="login" name="login"> <br>
-				Senha: <input type="text" id="senha" name="senha"> <br>
+				Senha: <input type="password" id="senha" name="senha"> <br>
 				<button type="submit" value="Logar">Logar</button>
 			</form>
 		</div>
