@@ -35,6 +35,11 @@
 						value="${user.nome}"></td>
 				</tr>
 				<tr>
+					<td>Telefone:</td>
+					<td><input type="text" id="telefone" name="telefone"
+						value="${user.telefone}"></td>
+				</tr>
+				<tr>
 					<td></td>
 					<td><input type="submit" value="salvar">  <input type="submit" value="Cancelar" onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'"></td>
 				</tr>
@@ -49,6 +54,7 @@
 				<th>Login</th>
 				<th>Senha</th>
 				<th>Nome</th>
+				<th>Telefone</th>
 				<th>Delete</th>
 				<th>Editar</th>
 			</tr>
@@ -58,6 +64,7 @@
 					<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
+					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
 					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resourse/img/excluir.jpg" alt="excluir" title="Excluir"
 							width="20px" height="20px"></a></td>

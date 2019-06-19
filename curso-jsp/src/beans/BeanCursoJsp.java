@@ -6,6 +6,7 @@ public class BeanCursoJsp {
 	private String login;
 	private String senha;
 	private String nome;
+	private String telefone;
 
 	public int calcula(int numero) {
 		return numero * 100;
@@ -41,6 +42,14 @@ public class BeanCursoJsp {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 }
