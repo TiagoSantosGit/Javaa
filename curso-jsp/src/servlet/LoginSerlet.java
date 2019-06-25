@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.BeanLoginJsp;
 import dao.DaoLogin;
 
 /**
@@ -46,7 +45,7 @@ public class LoginSerlet extends HttpServlet {
 		try {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
-		BeanLoginJsp beanLoginJsp = new BeanLoginJsp();
+		//BeanLoginJsp beanLoginJsp = new BeanLoginJsp();
 		if (daoLogin.validarLogin(login, senha)) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
 			dispatcher.forward(request, response);

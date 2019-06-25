@@ -25,7 +25,6 @@ public class ServletUsuario extends HttpServlet {
 	 */
 	public ServletUsuario() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

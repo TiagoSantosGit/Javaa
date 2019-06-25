@@ -4,14 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Adicionando JQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
 <link rel=stylesheet href="resourse/css/cadastro.css">
 <meta charset="ISO-8859-1">
 <title>Cadastro de Usuário</title>
 </head>
 <body>
+	<a href="acessoliberado.jsp">Início</a>
+	<a href="index.jsp">Sair</a>
 	<h1>Cadastro de Usuário</h1>
 	<h3>${msg}</h3>
-	<form action="salvarUsuario" method="post" id="formUser">
+	<form action="salvarUsuario" method="post" id="formUser"
+		onsubmit="return validarCampos()? true : false;">
 		<ul class="form-style-1">
 			<table>
 				<tr>
@@ -40,8 +48,19 @@
 						value="${user.telefone}"></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td><input type="submit" value="salvar">  <input type="submit" value="Cancelar" onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'"></td>
+				<tr>
+					<td>CEP:</td>
+					<td><input type="text" id="cep" name="cep"
+						onblur="consultaCep();"></td>
+				</tr>
+				<tr>
+					<td>Cidade:</td>
+					<td><input type="text" id="cidade" name="cidade"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="salvar"> <input
+						type="submit" value="Cancelar"
+						onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'"></td>
 				</tr>
 			</table>
 		</ul>
@@ -75,5 +94,38 @@
 			</c:forEach>
 		</table>
 	</div>
+	<script type="text/javascript">
+		function validarCampos() {
+			if (document.getElementById("login").value == '') {
+				alert('Informe o login');
+				return false;
+			} else if (document.getElementById("senha").value == '') {
+				alert('Informe a senha');
+				return false;
+			} else if (document.getElementById("nome").value == '') {
+				alert('Informe o nome');
+				return false;
+			} else if (document.getElementById("telefone").value == '') {
+				alert('Informe o telefone');
+				return false;
+			}
+			return true;
+		}
+		function consultaCep() {
+	<%--https://viacep.com.br/exemplo/jquery/--%>
+		var cep = $("#cep").val();
+			//Consulta o webservice viacep.com.br/
+			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?",
+					function(dados) {
+						if (!("erro" in dados)) {
+							//alert(dados.localidade);
+							var cidade = $("#cidade").val(dados.localidade);
+							document.setElementById("#cidade");
+						} else {
+							alert("CEP não encontrado.");
+						}
+					});
+		}
+	</script>
 </body>
 </html>
