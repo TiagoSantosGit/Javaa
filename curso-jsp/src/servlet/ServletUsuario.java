@@ -46,6 +46,7 @@ public class ServletUsuario extends HttpServlet {
 					BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
 					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
 					request.setAttribute("user", beanCursoJsp);
+					request.setAttribute("usuarios", daoUsuario.listar());
 					view.forward(request, response);
 				} else if (acao.equalsIgnoreCase("listartodos")) {
 					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
@@ -90,16 +91,17 @@ public class ServletUsuario extends HttpServlet {
 			usuario.setNome(nome);
 			usuario.setTelefone(telefone);
 			try {
-				if (daoUsuario.validarLogin(login)) {
-					if (id == null || id.isEmpty()) {
+				if (id == null || id.isEmpty()) {
+					if (daoUsuario.validarLogin(login)) {
 						daoUsuario.Salvar(usuario);
 					} else {
-						daoUsuario.atualizar(usuario);
+						request.setAttribute("msg", "Usuário já existe com o mesmo login!");
 					}
 				} else {
-					request.setAttribute("msg", "Usuário já existe com o mesmo login!");
-					request.setAttribute("user", usuario);
+					daoUsuario.atualizar(usuario);
+					request.setAttribute("msg", "Usuário atualizado!");
 				}
+				request.setAttribute("user", usuario);
 				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);

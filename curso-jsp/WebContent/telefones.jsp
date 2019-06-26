@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Adicionando JQuery -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
-
 <link rel=stylesheet href="resourse/css/cadastro.css">
 <meta charset="ISO-8859-1">
-<title>Cadastro de Usuário</title>
+<title>Cadastro de Telefones</title>
 </head>
 <body>
-	<a href="acessoliberado.jsp">Início</a>
+<a href="acessoliberado.jsp">Início</a>
 	<a href="index.jsp">Sair</a>
-	<h1>Cadastro de Usuário</h1>
+	<h1>Cadastro de Telefones</h1>
 	<h3 style="color: orange;">${msg}</h3>
-	<form action="salvarUsuario" method="post" id="formUser"
+	<form action="TelefonesSerlets" method="post" id="formUser"
 		onsubmit="return validarCampos()? true : false;">
 		<ul class="form-style-1">
 			<table>
@@ -48,7 +43,7 @@
 						value="${user.telefone}"></td>
 				</tr>
 				<tr>
-				<tr>
+					<tr>
 					<td>CEP:</td>
 					<td><input type="text" id="cep" name="cep"
 						onblur="consultaCep();"></td>
@@ -114,21 +109,6 @@
 				return false;
 			}
 			return true;
-		}
-		function consultaCep() {
-	<%--https://viacep.com.br/exemplo/jquery/--%>
-		var cep = $("#cep").val();
-			//Consulta o webservice viacep.com.br/
-			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?",
-					function(dados) {
-						if (!("erro" in dados)) {
-							//alert(dados.localidade);
-							var cidade = $("#cidade").val(dados.localidade);
-							document.setElementById("#cidade");
-						} else {
-							alert("CEP não encontrado.");
-						}
-					});
 		}
 	</script>
 </body>
