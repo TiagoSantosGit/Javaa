@@ -52,4 +52,10 @@ public class BeanCursoJsp {
 		this.telefone = telefone;
 	}
 
+	@Override
+	public String toString() {
+		//beanCursoJSP.toString(); Descrição do objeto na memoria
+		return "BeanCursoJsp [id=" + id + ", login=" + login + ", senha=" + senha + ", nome=" + nome + ", telefone="
+				+ telefone + "]";
+	}
 }

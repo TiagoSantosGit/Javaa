@@ -117,5 +117,5 @@ public class DaoUsuario {
 			return resultSet.getInt("qtd") <= 0;
 		}
 		return false;
-	}
+	}	
 }
