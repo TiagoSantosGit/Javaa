@@ -83,6 +83,8 @@ public class ServletUsuario extends HttpServlet {
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
 			String telefone = request.getParameter("telefone");
+			String cep = request.getParameter("cep");
+			String cidade = request.getParameter("cidade");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
@@ -90,6 +92,8 @@ public class ServletUsuario extends HttpServlet {
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
 			usuario.setTelefone(telefone);
+			usuario.setCep(cep);
+			usuario.setCidade(cidade);
 			try {
 				if (id == null || id.isEmpty()) {
 					if (daoUsuario.validarLogin(login)) {

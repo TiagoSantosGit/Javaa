@@ -19,12 +19,14 @@ public class DaoUsuario {
 	public void Salvar(BeanCursoJsp usuario) {
 
 		try {
-			String sql = "insert into usuario(login, senha, nome, telefone) values(?,?,?,?)";
+			String sql = "insert into usuario(login, senha, nome, telefone, cep, cidade) values(?,?,?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
 			insert.setString(4, usuario.getTelefone());
+			insert.setString(5, usuario.getCep());
+			insert.setString(6, usuario.getCidade());
 			insert.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,6 +50,8 @@ public class DaoUsuario {
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
+			beanCursoJsp.setCep(resultSet.getString("cep"));
+			beanCursoJsp.setCidade(resultSet.getString("cidade"));
 			listar.add(beanCursoJsp);
 		}
 		return listar;
@@ -82,6 +86,8 @@ public class DaoUsuario {
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
+			beanCursoJsp.setCep(resultSet.getString("cep"));
+			beanCursoJsp.setCidade(resultSet.getString("cidade"));
 			return beanCursoJsp;
 		}
 		return null;
@@ -90,13 +96,15 @@ public class DaoUsuario {
 	public void atualizar(BeanCursoJsp usuario) {
 
 		try {
-			String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ? where id = ?";
+			String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, cidade = ? where id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
 			preparedStatement.setString(3, usuario.getNome());
 			preparedStatement.setString(4, usuario.getTelefone());
-			preparedStatement.setLong(5, usuario.getId());
+			preparedStatement.setString(5, usuario.getCep());
+			preparedStatement.setString(6, usuario.getCidade());
+			preparedStatement.setLong(7, usuario.getId());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {

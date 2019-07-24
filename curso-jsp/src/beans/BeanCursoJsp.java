@@ -7,6 +7,8 @@ public class BeanCursoJsp {
 	private String senha;
 	private String nome;
 	private String telefone;
+	private String cep;
+	private String cidade;
 
 	public int calcula(int numero) {
 		return numero * 100;
@@ -50,6 +52,22 @@ public class BeanCursoJsp {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 	@Override

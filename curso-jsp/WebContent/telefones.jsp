@@ -13,7 +13,7 @@
 	<a href="index.jsp">Sair</a>
 	<h1>Cadastro de Telefones</h1>
 	<h3 style="color: orange;">${msg}</h3>
-	<form action="TelefonesSerlets" method="post" id="formUser"
+	<form action="salvarTelefone" method="post" id="formUser"
 		onsubmit="return validarCampos()? true : false;">
 		<ul class="form-style-1">
 			<table>
@@ -23,39 +23,14 @@
 						value="${user.id}"></td>
 				</tr>
 				<tr>
-					<td>Login:</td>
-					<td><input type="text" id="login" name="login"
-						value="${user.login}"></td>
-				</tr>
-				<tr>
-					<td>Senha:</td>
-					<td><input type="password" id="senha" name="senha"
-						value="${user.senha}"></td>
-				</tr>
-				<tr>
-					<td>Nome:</td>
-					<td><input type="text" id="nome" name="nome"
-						value="${user.nome}"></td>
-				</tr>
-				<tr>
 					<td>Telefone:</td>
 					<td><input type="text" id="telefone" name="telefone"
 						value="${user.telefone}"></td>
 				</tr>
 				<tr>
-					<tr>
-					<td>CEP:</td>
-					<td><input type="text" id="cep" name="cep"
-						onblur="consultaCep();"></td>
-				</tr>
-				<tr>
-					<td>Cidade:</td>
-					<td><input type="text" id="cidade" name="cidade"></td>
-				</tr>
-				<tr>
 					<td><input type="submit" value="salvar"> <input
 						type="submit" value="Cancelar"
-						onclick="document.getElementById('formUser').action = 'salvarUsuario?acao=reset'"></td>
+						onclick="document.getElementById('formUser').action = 'salvarTelefone?acao=reset'"></td>
 				</tr>
 			</table>
 		</ul>
@@ -80,14 +55,11 @@
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+					<td><a href="salvarTelefone?acao=delete&user=${user.id}"><img
 							src="resourse/img/excluir.jpg" alt="excluir" title="Excluir"
 							width="20px" height="20px"></a></td>
-					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
+					<td><a href="salvarTelefone?acao=editar&user=${user.id}"><img
 							src="resourse/img/editar.jpg" alt="editar" title="Editar"
-							width="20px" height="20px"></a></td>
-					<td><a href="salvarTelefone?user=${user.id}"><img
-							src="resourse/img/telefone.png" alt="telefone" title="Telefone"
 							width="20px" height="20px"></a></td>
 				</tr>
 			</c:forEach>
@@ -95,16 +67,7 @@
 	</div>
 	<script type="text/javascript">
 		function validarCampos() {
-			if (document.getElementById("login").value == '') {
-				alert('Informe o login');
-				return false;
-			} else if (document.getElementById("senha").value == '') {
-				alert('Informe a senha');
-				return false;
-			} else if (document.getElementById("nome").value == '') {
-				alert('Informe o nome');
-				return false;
-			} else if (document.getElementById("telefone").value == '') {
+			if (document.getElementById("telefone").value == '') {
 				alert('Informe o telefone');
 				return false;
 			}
