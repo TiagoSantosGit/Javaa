@@ -18,19 +18,26 @@
 		<ul class="form-style-1">
 			<table>
 				<tr>
-					<td>Código:</td>
+					<td>Usuário:</td>
 					<td><input type="text" readonly="readonly" id="id" name="id"
-						value="${user.id}"></td>
+						value="${userEscolhido.id}"></td>
+					<td><input type="text" readonly="readonly" id="nome" name="nome"
+						value="${userEscolhido.nome}"></td>
 				</tr>
 				<tr>
 					<td>Telefone:</td>
 					<td><input type="text" id="telefone" name="telefone"
-						value="${user.telefone}"></td>
+						value="${userEscolhido.telefone}"></td>
+					<td>
+					<select id="tipo" name="tipo">
+					<option>Casa</option>
+					<option>Contato</option>
+					<option>Celular</option>
+					</select>					
+					</td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="salvar"> <input
-						type="submit" value="Cancelar"
-						onclick="document.getElementById('formUser').action = 'salvarTelefone?acao=reset'"></td>
+					<td><input type="submit" value="salvar">
 				</tr>
 			</table>
 		</ul>
@@ -70,6 +77,11 @@
 			if (document.getElementById("telefone").value == '') {
 				alert('Informe o telefone');
 				return false;
+			}else{
+				if (document.getElementById("tipo").value == '') {
+					alert('Informe o tipo');
+					return false;
+				}
 			}
 			return true;
 		}
