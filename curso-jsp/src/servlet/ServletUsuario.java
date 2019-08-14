@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import beans.BeanCursoJsp;
 import dao.DaoUsuario;
@@ -97,6 +104,17 @@ public class ServletUsuario extends HttpServlet {
 			try {
 				if (id == null || id.isEmpty()) {
 					if (daoUsuario.validarLogin(login)) {
+						// Inicio file upload de imagens
+						if (ServletFileUpload.isMultipartContent(request)) {
+							List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory())
+									.parseRequest((RequestContext) request);
+							for (FileItem fileItem : fileItems)
+								if (fileItem.getFieldName().contentEquals("foto")) {
+									String foto = new Base64().encodeBase64String(fileItem.get());
+									System.out.println(foto);
+								}
+						}
+						// Fim file upload
 						daoUsuario.Salvar(usuario);
 					} else {
 						request.setAttribute("msg", "Usuário já existe com o mesmo login!");

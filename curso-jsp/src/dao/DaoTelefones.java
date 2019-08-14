@@ -35,9 +35,9 @@ public class DaoTelefones {
 		}
 	}
 
-	public List<BeanTelefones> listar() throws Exception {
+	public List<BeanTelefones> listar(Long user) throws Exception {
 		List<BeanTelefones> listar = new ArrayList<BeanTelefones>();
-		String sql = "select * from telefone";
+		String sql = "select * from telefone where usuario =" + user;
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
 		while (resultSet.next()) {

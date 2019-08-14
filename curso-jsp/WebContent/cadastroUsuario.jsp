@@ -19,7 +19,8 @@
 	<h1>Cadastro de Usuário</h1>
 	<h3 style="color: orange;">${msg}</h3>
 	<form action="salvarUsuario" method="post" id="formUser"
-		onsubmit="return validarCampos()? true : false;">
+		onsubmit="return validarCampos()? true : false;"
+		enctype="multipart/form-data">
 		<ul class="form-style-1">
 			<table>
 				<tr>
@@ -36,20 +37,25 @@
 						value="${user.login}"></td>
 					<td>CEP:</td>
 					<td><input type="text" id="cep" name="cep"
-						onblur="consultaCep();" value="${user.cep}"></td>
+						placeholder="CEP da cidade" onblur="consultaCep();"
+						value="${user.cep}"></td>
 				</tr>
 				<tr>
 					<td>Senha:</td>
 					<td><input type="password" id="senha" name="senha"
-						value="${user.senha}"></td>
+						placeholder="Digite uma senha" value="${user.senha}"></td>
 					<td>Cidade:</td>
 					<td><input type="text" id="cidade" name="cidade"
-						value="${user.cidade}"></td>
+						placeholder="Coloque a cidade" value="${user.cidade}"></td>
 				</tr>
 				<tr>
 					<td>Nome:</td>
 					<td><input type="text" id="nome" name="nome"
-						value="${user.nome}"></td>
+						placeholder="Nome do usuario" value="${user.nome}"></td>
+				</tr>
+				<tr>
+					<td>Foto:</td>
+					<td><input type="file" name="foto" value="foto"></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="salvar"> <input
@@ -85,7 +91,7 @@
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
 							src="resourse/img/editar.jpg" alt="editar" title="Editar"
 							width="20px" height="20px"></a></td>
-					<td><a href="salvarTelefone?user=${user.id}"><img
+					<td><a href="salvarTelefone?acao=listarFone&user=${user.id}"><img
 							src="resourse/img/telefone.png" alt="telefone" title="Telefone"
 							width="20px" height="20px"></a></td>
 				</tr>
