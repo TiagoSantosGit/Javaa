@@ -71,6 +71,7 @@
 			<tr>
 				<th>Id</th>
 				<th>Login</th>
+				<th>Foto</th>
 				<th>Senha</th>
 				<th>Nome</th>
 				<th>Telefone</th>
@@ -82,6 +83,8 @@
 				<tr>
 					<td style="width: 100px"><c:out value="${user.id}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
+					<td style="width: 100px"><a href="salvarUsuario?acao=download&user=${user.id}">
+					<img src='<c:out value="${user.tempFotoUser}"/>' alt="Imagem User" title="Imagem User" width="32px" height="32px" /></a></td>
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
@@ -100,42 +103,60 @@
 	</div>
 	<script type="text/javascript">
 		function validarCampos() {
-			if (document.getElementById("login").value == '') {
+			if (document.getElementById("login").value == '
+						') {
 				alert('Informe o login');
 				return false;
-			} else if (document.getElementById("senha").value == '') {
+			} else
+						if (document.getElementById("senha").value==
+						'') {
 				alert('Informe a senha');
 				return false;
-			} else if (document.getElementById("nome").value == '') {
+			} else
+						if (document.getElementById("nome").value==
+						'') {
 				alert('Informe o nome');
 				return false;
-			} else if (document.getElementById("telefone").value == '') {
+			} else
+						if (document.getElementById("telefone").value==
+						'') {
 				alert('Informe o telefone');
-				return false;
+				return
+						false;
 			}
 			return true;
 		}
-		function consultaCep() {
+		function
+						consultaCep() {
 	<%--https://viacep.com.br/exemplo/jquery/--%>
-		var cep = $("#cep").val();
-			//Consulta o webservice viacep.com.br/
-			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?",
+		var
+						cep=$( "#cep").val();
+			//Consulta o webservice
+						viacep.com.br/
+			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?
+						",
 					function(dados) {
-						if (!("erro" in dados)) {
+						if (!("erro" in
+						dados)) {
 							//alert(dados.localidade);
-							var cidade = $("#cidade").val(dados.localidade);
+							var cidade=$(
+						"#cidade").val(dados.localidade);
 							document.setElementById("#cidade");
 						} else {
-							alert("CEP não encontrado!");
+							alert("CEP
+						não
+						encontrado!");
 							limpa_formulário_cep();
 						}
 					});
 		}
-		function limpa_formulário_cep() {
-			// Limpa valores do formulário de cep.
+		function
+						limpa_formulário_cep() {
+			// Limpa valores do formulário decep.
 			$("#cidade").val("");
 			$("#cep").val("");
 		}
-	</script>
+	
+					</script>
 </body>
 </html>

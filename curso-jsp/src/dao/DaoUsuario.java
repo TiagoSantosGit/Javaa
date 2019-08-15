@@ -19,7 +19,7 @@ public class DaoUsuario {
 	public void Salvar(BeanCursoJsp usuario) {
 
 		try {
-			String sql = "insert into usuario(login, senha, nome, telefone, cep, cidade) values(?,?,?,?,?,?)";
+			String sql = "insert into usuario(login, senha, nome, telefone, cep, cidade, fotobase64, contentype) values(?,?,?,?,?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
@@ -27,6 +27,8 @@ public class DaoUsuario {
 			insert.setString(4, usuario.getTelefone());
 			insert.setString(5, usuario.getCep());
 			insert.setString(6, usuario.getCidade());
+			insert.setString(7, usuario.getFotoBase64());
+			insert.setString(8, usuario.getContenType());
 			insert.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +54,8 @@ public class DaoUsuario {
 			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
 			beanCursoJsp.setCep(resultSet.getString("cep"));
 			beanCursoJsp.setCidade(resultSet.getString("cidade"));
+			beanCursoJsp.setFotoBase64(resultSet.getString("fotobase64"));
+			beanCursoJsp.setContenType(resultSet.getString("contentype"));
 			listar.add(beanCursoJsp);
 		}
 		return listar;
@@ -88,6 +92,8 @@ public class DaoUsuario {
 			beanCursoJsp.setTelefone(resultSet.getString("telefone"));
 			beanCursoJsp.setCep(resultSet.getString("cep"));
 			beanCursoJsp.setCidade(resultSet.getString("cidade"));
+			beanCursoJsp.setFotoBase64(resultSet.getString("fotobase64"));
+			beanCursoJsp.setContenType(resultSet.getString("contentype"));
 			return beanCursoJsp;
 		}
 		return null;
@@ -96,7 +102,7 @@ public class DaoUsuario {
 	public void atualizar(BeanCursoJsp usuario) {
 
 		try {
-			String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, cidade = ? where id = ?";
+			String sql = "update usuario set login = ?, senha = ?, nome = ?, telefone = ?, cep = ?, cidade = ?, fotobase64 = ?, contentype = ? where id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
@@ -105,6 +111,8 @@ public class DaoUsuario {
 			preparedStatement.setString(5, usuario.getCep());
 			preparedStatement.setString(6, usuario.getCidade());
 			preparedStatement.setLong(7, usuario.getId());
+			preparedStatement.setString(8, usuario.getFotoBase64());
+			preparedStatement.setString(9, usuario.getContenType());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e) {

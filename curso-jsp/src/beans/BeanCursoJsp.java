@@ -9,6 +9,10 @@ public class BeanCursoJsp {
 	private String telefone;
 	private String cep;
 	private String cidade;
+	private String fotoBase64;
+	private String contenType;
+	
+	private String tempFotoUser;
 
 	public int calcula(int numero) {
 		return numero * 100;
@@ -68,6 +72,27 @@ public class BeanCursoJsp {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getFotoBase64() {
+		return fotoBase64;
+	}
+
+	public void setFotoBase64(String fotoBase64) {
+		this.fotoBase64 = fotoBase64;
+	}
+
+	public String getContenType() {
+		return contenType;
+	}
+
+	public void setContenType(String contenType) {
+		this.contenType = contenType;
+	}
+
+	public String getTempFotoUser() {
+	    tempFotoUser = "data:" + contenType + ";base64," + fotoBase64;
+		return tempFotoUser;
 	}
 
 	@Override

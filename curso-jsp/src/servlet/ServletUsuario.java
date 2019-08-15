@@ -1,20 +1,22 @@
 package servlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 import beans.BeanCursoJsp;
 import dao.DaoUsuario;
@@ -23,6 +25,7 @@ import dao.DaoUsuario;
  * Servlet implementation class ServletUsuario
  */
 @WebServlet("/salvarUsuario")
+@MultipartConfig
 public class ServletUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DaoUsuario daoUsuario = new DaoUsuario();
@@ -59,6 +62,24 @@ public class ServletUsuario extends HttpServlet {
 					RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
 					request.setAttribute("usuarios", daoUsuario.listar());
 					view.forward(request, response);
+				} else if (acao.equalsIgnoreCase("download")) {
+					BeanCursoJsp usuario = daoUsuario.consultar(user);
+					if (usuario != null) {
+						response.setHeader("Content-Disposition",
+								"attachment;filename=arquivo." + usuario.getContenType().split("\\/")[1]);
+						byte[] imageFotoBytes = new Base64().decodeBase64(usuario.getFotoBase64());
+						/* coloca os bytes em objeto de entrada para processar */
+						InputStream is = new ByteArrayInputStream(imageFotoBytes);
+						/* inicio da resposta para o navegador */
+						int read = 0;
+						byte[] bytes = new byte[1024];
+						OutputStream os = response.getOutputStream();
+						while ((read = is.read(bytes)) != -1) {
+							os.write(bytes, 0, read);
+						}
+						os.flush();
+						os.close();
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -104,18 +125,25 @@ public class ServletUsuario extends HttpServlet {
 			try {
 				if (id == null || id.isEmpty()) {
 					if (daoUsuario.validarLogin(login)) {
-						// Inicio file upload de imagens
-						if (ServletFileUpload.isMultipartContent(request)) {
-							List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory())
-									.parseRequest((RequestContext) request);
-							for (FileItem fileItem : fileItems)
-								if (fileItem.getFieldName().contentEquals("foto")) {
-									String foto = new Base64().encodeBase64String(fileItem.get());
-									System.out.println(foto);
-								}
-						}
-						// Fim file upload
+						/*
+						 * // Inicio file upload de imagens if
+						 * (ServletFileUpload.isMultipartContent(request)) { List<FileItem> fileItems =
+						 * new ServletFileUpload(new DiskFileItemFactory())
+						 * .parseRequest((RequestContext) request); for (FileItem fileItem : fileItems)
+						 * if (fileItem.getFieldName().contentEquals("foto")) { String fotoBase64 = new
+						 * Base64().encodeBase64String(fileItem.get()); String contentType =
+						 * fileItem.getContentType(); usuario.setFotoBase64(fotoBase64);
+						 * usuario.setContenType(contentType); } } // Fim file upload
+						 */
+						Part imagemFoto = request.getPart("foto");
+
+						String fotoBase64 = new Base64()
+								.encodeBase64String(converteIstremParaByte(imagemFoto.getInputStream()));
+						String contentType = imagemFoto.getContentType();
+						usuario.setFotoBase64(fotoBase64);
+						usuario.setContenType(contentType);
 						daoUsuario.Salvar(usuario);
+						request.setAttribute("msg", "Usuário gravado!");
 					} else {
 						request.setAttribute("msg", "Usuário já existe com o mesmo login!");
 					}
@@ -131,5 +159,16 @@ public class ServletUsuario extends HttpServlet {
 				e1.printStackTrace();
 			}
 		}
+	}
+
+//Converte a entrada de fluxo de dados para um array de bytes
+	private byte[] converteIstremParaByte(InputStream imagem) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int reads = imagem.read();
+		while (reads != -1) {
+			baos.write(reads);
+			reads = imagem.read();
+		}
+		return baos.toByteArray();
 	}
 }
