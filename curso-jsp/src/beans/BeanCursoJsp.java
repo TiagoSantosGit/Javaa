@@ -11,8 +11,11 @@ public class BeanCursoJsp {
 	private String cidade;
 	private String fotoBase64;
 	private String contenType;
-	
+	private String curriculoBase64;
+	private String contenTypeCurriculo;
+
 	private String tempFotoUser;
+	private String tempCurriculoUser;
 
 	public int calcula(int numero) {
 		return numero * 100;
@@ -90,14 +93,35 @@ public class BeanCursoJsp {
 		this.contenType = contenType;
 	}
 
+	public String getCurriculoBase64() {
+		return curriculoBase64;
+	}
+
+	public void setCurriculoBase64(String curriculoBase64) {
+		this.curriculoBase64 = curriculoBase64;
+	}
+
+	public String getContenTypeCurriculo() {
+		return contenTypeCurriculo;
+	}
+
+	public void setContenTypeCurriculo(String contenTypeCurriculo) {
+		this.contenTypeCurriculo = contenTypeCurriculo;
+	}
+
+	public String getTempCurriculoUser() {
+		tempCurriculoUser = "data:" + contenTypeCurriculo + ";base64," + curriculoBase64;
+		return tempCurriculoUser;
+	}
+
 	public String getTempFotoUser() {
-	    tempFotoUser = "data:" + contenType + ";base64," + fotoBase64;
+		tempFotoUser = "data:" + contenType + ";base64," + fotoBase64;
 		return tempFotoUser;
 	}
 
 	@Override
 	public String toString() {
-		//beanCursoJSP.toString(); Descrição do objeto na memoria
+		// beanCursoJSP.toString(); Descrição do objeto na memoria
 		return "BeanCursoJsp [id=" + id + ", login=" + login + ", senha=" + senha + ", nome=" + nome + ", telefone="
 				+ telefone + "]";
 	}

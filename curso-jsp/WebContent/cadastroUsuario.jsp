@@ -55,7 +55,19 @@
 				</tr>
 				<tr>
 					<td>Foto:</td>
-					<td><input type="file" name="foto" value="foto"></td>
+					<td><input type="file" name="foto" value="foto"><input
+						type="text" style="display:none;" name="fotoTemp"
+						readonly="readonly" value="${user.fotoBase64}"><input
+						type="text" style="display:none;" name="contenTypeTemp"
+						readonly="readonly" value="${user.contenType}"></td>
+				</tr>
+				<tr>
+					<td>Curriculo:</td>
+					<td><input type="file" name="curriculo" value="curriculo"><input
+						type="text" style="display:none;" name="curriculoTemp"
+						readonly="readonly" value="${user.curriculoBase64}"><input
+						type="text" style="display:none;" name="contenTypeCurriculoTemp"
+						readonly="readonly" value="${user.contenTypeCurriculo}"></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="salvar"> <input
@@ -72,6 +84,7 @@
 				<th>Id</th>
 				<th>Login</th>
 				<th>Foto</th>
+				<th>Curriculo</th>
 				<th>Senha</th>
 				<th>Nome</th>
 				<th>Telefone</th>
@@ -83,8 +96,13 @@
 				<tr>
 					<td style="width: 100px"><c:out value="${user.id}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
-					<td style="width: 100px"><a href="salvarUsuario?acao=download&user=${user.id}">
-					<img src='<c:out value="${user.tempFotoUser}"/>' alt="Imagem User" title="Imagem User" width="32px" height="32px" /></a></td>
+					<td style="width: 100px"><a
+						href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+							<img src='<c:out value="${user.tempFotoUser}"/>'
+							alt="Imagem User" title="Imagem User" width="32px" height="32px" />
+					</a></td>
+					<td style="width: 100px"><a
+						href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Curriculo</a></td>
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
@@ -103,8 +121,7 @@
 	</div>
 	<script type="text/javascript">
 		function validarCampos() {
-			if (document.getElementById("login").value == '
-						') {
+			if (document.getElementById("login").value == ''){
 				alert('Informe o login');
 				return false;
 			} else

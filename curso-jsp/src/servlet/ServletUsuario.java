@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import beans.BeanCursoJsp;
 import dao.DaoUsuario;
@@ -65,11 +66,23 @@ public class ServletUsuario extends HttpServlet {
 				} else if (acao.equalsIgnoreCase("download")) {
 					BeanCursoJsp usuario = daoUsuario.consultar(user);
 					if (usuario != null) {
+						String contentType = "";
+						byte[] imageBytes = null;
+						String tipo = request.getParameter("tipo");
+
+						if (tipo.equalsIgnoreCase("imagem")) {
+							contentType = usuario.getContenType();
+							imageBytes = new Base64().decodeBase64(usuario.getFotoBase64());
+						} else if (tipo.equalsIgnoreCase("curriculo")) {
+							contentType = usuario.getContenTypeCurriculo();
+							imageBytes = new Base64().decodeBase64(usuario.getCurriculoBase64());
+						}
 						response.setHeader("Content-Disposition",
-								"attachment;filename=arquivo." + usuario.getContenType().split("\\/")[1]);
-						byte[] imageFotoBytes = new Base64().decodeBase64(usuario.getFotoBase64());
+								"attachment;filename=arquivo." + contentType.split("\\/")[1]);
+
 						/* coloca os bytes em objeto de entrada para processar */
-						InputStream is = new ByteArrayInputStream(imageFotoBytes);
+						InputStream is = new ByteArrayInputStream(imageBytes);
+
 						/* inicio da resposta para o navegador */
 						int read = 0;
 						byte[] bytes = new byte[1024];
@@ -122,6 +135,33 @@ public class ServletUsuario extends HttpServlet {
 			usuario.setTelefone(telefone);
 			usuario.setCep(cep);
 			usuario.setCidade(cidade);
+
+			if (ServletFileUpload.isMultipartContent(request)) {
+
+				Part imagemFoto = request.getPart("foto");
+
+				if (imagemFoto != null && imagemFoto.getInputStream().available() > 0) {
+					String fotoBase64 = new Base64()
+							.encodeBase64String(converteIstremParaByte(imagemFoto.getInputStream()));
+					String contentType = imagemFoto.getContentType();
+					usuario.setFotoBase64(fotoBase64);
+					usuario.setContenType(contentType);
+				} else {
+					usuario.setFotoBase64(request.getParameter("fotoTemp"));
+					usuario.setContenType(request.getParameter("contenTypeTemp"));
+				}
+				Part imagemCurriculo = request.getPart("curriculo");
+				if (imagemCurriculo != null && imagemCurriculo.getInputStream().available() > 0) {
+					String curriculoBase64 = new Base64()
+							.encodeBase64String(converteIstremParaByte(imagemCurriculo.getInputStream()));
+					String contentTypeCurriculo = imagemCurriculo.getContentType();
+					usuario.setCurriculoBase64(curriculoBase64);
+					usuario.setContenTypeCurriculo(contentTypeCurriculo);
+				} else {
+					usuario.setCurriculoBase64(request.getParameter("curriculoTemp"));
+					usuario.setContenTypeCurriculo(request.getParameter("contenTypeCurriculoTemp"));
+				}
+			}
 			try {
 				if (id == null || id.isEmpty()) {
 					if (daoUsuario.validarLogin(login)) {
@@ -135,13 +175,6 @@ public class ServletUsuario extends HttpServlet {
 						 * fileItem.getContentType(); usuario.setFotoBase64(fotoBase64);
 						 * usuario.setContenType(contentType); } } // Fim file upload
 						 */
-						Part imagemFoto = request.getPart("foto");
-
-						String fotoBase64 = new Base64()
-								.encodeBase64String(converteIstremParaByte(imagemFoto.getInputStream()));
-						String contentType = imagemFoto.getContentType();
-						usuario.setFotoBase64(fotoBase64);
-						usuario.setContenType(contentType);
 						daoUsuario.Salvar(usuario);
 						request.setAttribute("msg", "Usuário gravado!");
 					} else {
