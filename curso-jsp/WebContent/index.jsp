@@ -4,6 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="resourse/css/estilo.css">
+<link rel="shortcut icon" href="resourse/img/web.ico">
 <meta charset="ISO-8859-1">
 <title>Login no sistema</title>
 </head>

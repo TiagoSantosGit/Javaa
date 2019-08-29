@@ -10,6 +10,7 @@
 	crossorigin="anonymous"></script>
 
 <link rel=stylesheet href="resourse/css/cadastro.css">
+<link rel="shortcut icon" href="resourse/img/web.ico">
 <meta charset="ISO-8859-1">
 <title>Cadastro de Usuário</title>
 </head>
