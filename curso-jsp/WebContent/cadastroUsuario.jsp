@@ -37,14 +37,14 @@
 					<td><input type="text" id="login" name="login"
 						value="${user.login}"></td>
 					<td>CEP:</td>
-					<td><input type="text" id="cep" name="cep"
+					<td><input type="text" id="cep" name="cep" maxlength="20"
 						placeholder="CEP da cidade" onblur="consultaCep();"
 						value="${user.cep}"></td>
 				</tr>
 				<tr>
 					<td>Senha:</td>
 					<td><input type="password" id="senha" name="senha"
-						placeholder="Digite uma senha" value="${user.senha}"></td>
+						placeholder="Digite uma senha" value="${user.senha}" maxlength="20"></td>
 					<td>Cidade:</td>
 					<td><input type="text" id="cidade" name="cidade"
 						placeholder="Coloque a cidade" value="${user.cidade}"></td>
@@ -57,17 +57,17 @@
 				<tr>
 					<td>Foto:</td>
 					<td><input type="file" name="foto" value="foto"><input
-						type="text" style="display:none;" name="fotoTemp"
+						type="text" style="display: none;" name="fotoTemp"
 						readonly="readonly" value="${user.fotoBase64}"><input
-						type="text" style="display:none;" name="contenTypeTemp"
+						type="text" style="display: none;" name="contenTypeTemp"
 						readonly="readonly" value="${user.contenType}"></td>
 				</tr>
 				<tr>
 					<td>Curriculo:</td>
 					<td><input type="file" name="curriculo" value="curriculo"><input
-						type="text" style="display:none;" name="curriculoTemp"
+						type="text" style="display: none;" name="curriculoTemp"
 						readonly="readonly" value="${user.curriculoBase64}"><input
-						type="text" style="display:none;" name="contenTypeCurriculoTemp"
+						type="text" style="display: none;" name="contenTypeCurriculoTemp"
 						readonly="readonly" value="${user.contenTypeCurriculo}"></td>
 				</tr>
 				<tr>
@@ -97,13 +97,31 @@
 				<tr>
 					<td style="width: 100px"><c:out value="${user.id}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
-					<td style="width: 100px"><a
-						href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
-							<img src='<c:out value="${user.tempFotoUser}"/>'
-							alt="Imagem User" title="Imagem User" width="32px" height="32px" />
-					</a></td>
-					<td style="width: 100px"><a
-						href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Curriculo</a></td>
+					<c:if test="${user.fotoBase64.isEmpty() == false}">
+						<td style="width: 100px"><a
+							href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+								<img src='<c:out value="${user.tempFotoUser}"/>'
+								alt="Imagem User" title="Imagem User" width="32px" height="32px" />
+						</a></td>
+					</c:if>
+					<c:if test="${user.fotoBase64.isEmpty() == true}">
+						<td style="width: 100px"><a
+							href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
+								<img src="./resourse/img/usuario.jpg" alt="Imagem User"
+								title="Imagem User" width="32px" height="32px" />
+						</a></td>
+					</c:if>
+					<c:if test="${user.curriculoBase64.isEmpty() == false }">
+						<td style="width: 100px"><a
+							href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}"><img
+								alt="Curriculo" src="./resourse/img/pdf.png" width="32px"
+								height="32px"></a></td>
+					</c:if>
+					<c:if test="${user.curriculoBase64.isEmpty() == true }">
+						<td style="width: 100px"><a href="#"><img
+								alt="Inserir Curriculo" src="./resourse/img/nopdf.png"
+								width="32px" height="32px" onclick="alert('Não possui imagem!')"></a></td>
+					</c:if>
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
@@ -143,38 +161,29 @@
 						false;
 			}
 			return true;
-		}
-		function
-						consultaCep() {
-	<%--https://viacep.com.br/exemplo/jquery/--%>
-		var
-						cep=$( "#cep").val();
-			//Consulta o webservice
-						viacep.com.br/
-			$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?
-						",
-					function(dados) {
-						if (!("erro" in
-						dados)) {
+		}]
+	    <%--https://viacep.com.br/exemplo/jquery/--%>
+		functionconsultaCep() {
+		    var cep = $("#cep").val();
+	 		//Consulta o webservice
+			viacep.com.br
+					/ $.getJSON("https://viacep.com.br/ws/" + cep
+							+ "/json/?callback=?", function(dados) {
+						if (!("erro" in dados)) {
 							//alert(dados.localidade);
-							var cidade=$(
-						"#cidade").val(dados.localidade);
+							var cidade = $("#cidade").val(dados.localidade);
 							document.setElementById("#cidade");
 						} else {
-							alert("CEP
-						não
-						encontrado!");
+							alert("CEP não enontrado!");
 							limpa_formulário_cep();
 						}
 					});
 		}
-		function
-						limpa_formulário_cep() {
+		function limpa_formulário_cep() {
 			// Limpa valores do formulário decep.
 			$("#cidade").val("");
 			$("#cep").val("");
 		}
-	
-					</script>
+	</script>
 </body>
 </html>
