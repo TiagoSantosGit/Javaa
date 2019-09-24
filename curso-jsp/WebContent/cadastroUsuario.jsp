@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,10 @@
 <title>Cadastro de Usuário</title>
 </head>
 <body>
-	<a href="acessoliberado.jsp">Início</a>
-	<a href="index.jsp">Sair</a>
+	<a href="acessoliberado.jsp"><img src="resourse/img/home.jpg"
+		alt="Início" title="Início" width="30px" height="30px"></a>
+	<a href="index.jsp"><img src="resourse/img/exit.jpg" alt="Sair"
+		title="Sair" width="30px" height="30px"></a>
 	<h1>Cadastro de Usuário</h1>
 	<h3 style="color: orange;">${msg}</h3>
 	<form action="salvarUsuario" method="post" id="formUser"
@@ -44,7 +47,8 @@
 				<tr>
 					<td>Senha:</td>
 					<td><input type="password" id="senha" name="senha"
-						placeholder="Digite uma senha" value="${user.senha}" maxlength="20"></td>
+						placeholder="Digite uma senha" value="${user.senha}"
+						maxlength="20"></td>
 					<td>Cidade:</td>
 					<td><input type="text" id="cidade" name="cidade"
 						placeholder="Coloque a cidade" value="${user.cidade}"></td>
@@ -97,14 +101,15 @@
 				<tr>
 					<td style="width: 100px"><c:out value="${user.id}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.login}"></c:out></td>
-					<c:if test="${user.fotoBase64.isEmpty() == false}">
+					<c:if test="${user.fotoBase64Miniatura.isEmpty() == false}">
 						<td style="width: 100px"><a
 							href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
 								<img src='<c:out value="${user.tempFotoUser}"/>'
-								alt="Imagem User" title="Imagem User" width="32px" height="32px" />
+								alt="Imagem User" title="Imagem User" width="32px" height="32px"
+								onclick="alert('Não possui imagem!')" />
 						</a></td>
 					</c:if>
-					<c:if test="${user.fotoBase64.isEmpty() == true}">
+					<c:if test="${user.fotoBase64Miniatura.isEmpty() == true}">
 						<td style="width: 100px"><a
 							href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}">
 								<img src="./resourse/img/usuario.jpg" alt="Imagem User"
@@ -120,7 +125,8 @@
 					<c:if test="${user.curriculoBase64.isEmpty() == true }">
 						<td style="width: 100px"><a href="#"><img
 								alt="Inserir Curriculo" src="./resourse/img/nopdf.png"
-								width="32px" height="32px" onclick="alert('Não possui imagem!')"></a></td>
+								width="32px" height="32px"
+								onclick="alert('Não possui curriculo!')"></a></td>
 					</c:if>
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
@@ -161,13 +167,12 @@
 						false;
 			}
 			return true;
-		}]
+		}
 	    <%--https://viacep.com.br/exemplo/jquery/--%>
 		functionconsultaCep() {
 		    var cep = $("#cep").val();
-	 		//Consulta o webservice
-			viacep.com.br
-					/ $.getJSON("https://viacep.com.br/ws/" + cep
+	 		//Consulta o webservice viacep.com.br
+					 $.getJSON("https://viacep.com.br/ws/" + cep
 							+ "/json/?callback=?", function(dados) {
 						if (!("erro" in dados)) {
 							//alert(dados.localidade);

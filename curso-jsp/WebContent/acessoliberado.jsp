@@ -8,10 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Seja bem vindo ao sistema jsp</h2>
-	<%-- <a href="cadastroUsuario.jsp">Cadastro de usuários...</a> --%>
-	<a href="salvarUsuario?acao=listartodos"><img
-		src="resourse/img/usuario.jpg" alt="usuario" title="Cadastro de usuário"
-		width="20px" height="20px"></a>
+	<center style="padding-top: 10%;">
+		<h1>Seja bem vindo ao sistema!</h1>
+		<%-- <a href="cadastroUsuario.jsp">Cadastro de usuários...</a> --%>
+		<table>
+			<tr>
+				<td><a href="salvarUsuario?acao=listartodos"><img
+						src="resourse/img/users.png" alt="usuario"
+						title="Cadastro de usuário" width="250px" height="250px"></a></td>
+			</tr>
+			<tr>
+				<td><center>Cad. Usuário</center></td>
+			</tr>
+		</table>
 </body>
 </html>
