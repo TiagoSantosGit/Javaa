@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<jsp:useBean id="BeanCursoJsp" class="beans.BeanCursoJsp"
+	type="beans.BeanCursoJsp" scope="page"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +59,18 @@
 					<td>Nome:</td>
 					<td><input type="text" id="nome" name="nome"
 						placeholder="Nome do usuario" value="${user.nome}"></td>
+					<td>Ativo:</td>
+					<td><input type="checkbox" id="ativo" name="ativo" checked=${usuario.ativo ? 'checked': ''}
+					<%-- <%if (request.getAttribute("user") != null) {
+				BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+				if (user.IsAtivo()) {
+					out.print(" ");
+					out.print("checked=\"checked\"");
+					out.print(" ");
+				}
+			}%> --%>
+			>
+					</td>
 				</tr>
 				<tr>
 					<td>Foto:</td>
@@ -65,6 +79,30 @@
 						readonly="readonly" value="${user.fotoBase64}"><input
 						type="text" style="display: none;" name="contenTypeTemp"
 						readonly="readonly" value="${user.contenType}"></td>
+					<td>Sexo:</td>
+					<td><input type="radio" id="sexo" name="sexo"
+						${user.sexo == "M" ? 'checked': ''}
+						<%-- <%if (request.getAttribute("user") != null) {
+				BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+				if (user.getSexo().equalsIgnoreCase("M")) {
+					out.print(" ");
+					out.print("checked=\"checked\"");
+					out.print(" ");
+				}
+			}%> --%>
+						value="M">masculino
+						<input type="radio" id="sexo"
+						${user.sexo == "F" ? 'checked': ''}
+						<%-- <%if (request.getAttribute("user") != null) {
+				BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+				if (user.getSexo().equalsIgnoreCase("F")) {
+					out.print(" ");
+					out.print("checked=\"checked\"");
+					out.print(" ");
+				}
+			}%> --%>
+						name="sexo"
+						value="F">feminino</td>
 				</tr>
 				<tr>
 					<td>Curriculo:</td>
@@ -73,6 +111,22 @@
 						readonly="readonly" value="${user.curriculoBase64}"><input
 						type="text" style="display: none;" name="contenTypeCurriculoTemp"
 						readonly="readonly" value="${user.contenTypeCurriculo}"></td>
+					<td>Perfil:</td>
+					<td><select id="perfil" name="perfil">
+							<option value="nao-informado">[--SELECIONE--]</option>
+							<option value="administrador"
+							<%-- <%if (request.getAttribute("user") != null) {
+				BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+				if (user.getPerfil().equalsIgnoreCase("Administrador")) {
+					out.print(" ");
+					out.print("selected=\"selected\"");
+					out.print(" ");
+				}
+			}%> --%>		
+							>Administrador</option>
+							<option value="secretario">Secretario</option>
+							<option value="gerente">Gerente</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="salvar"> <input
@@ -131,7 +185,8 @@
 					<td style="width: 100px"><c:out value="${user.senha}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.nome}"></c:out></td>
 					<td style="width: 100px"><c:out value="${user.telefone}"></c:out></td>
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}"
+						onclick="return confirm('Confirmar a exclusão?');"><img
 							src="resourse/img/excluir.jpg" alt="excluir" title="Excluir"
 							width="20px" height="20px"></a></td>
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img

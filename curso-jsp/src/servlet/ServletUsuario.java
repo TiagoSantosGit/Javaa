@@ -142,6 +142,12 @@ public class ServletUsuario extends HttpServlet {
             usuario.setCep(cep);
             usuario.setCidade(cidade);
 
+            if (request.getParameter("ativo") != null && request.getParameter("ativo").equalsIgnoreCase("on")) {
+                usuario.setAtivo(true);
+            } else {
+                usuario.setAtivo(false);
+            }
+
             if (ServletFileUpload.isMultipartContent(request)) {
 
                 Part imagemFoto = request.getPart("foto");
