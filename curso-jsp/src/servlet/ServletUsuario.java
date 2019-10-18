@@ -6,7 +6,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -34,6 +33,7 @@ import dao.DaoUsuario;
 public class ServletUsuario extends HttpServlet {
     private static final long serialVersionUID = 1L;
     DaoUsuario daoUsuario = new DaoUsuario();
+	private ByteArrayOutputStream 		baos;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -159,8 +159,10 @@ public class ServletUsuario extends HttpServlet {
                     usuario.setContenType(contentType);
                     /* Inicio miniatura */
 
-                    /* Transformar em um BufferedImagem */
-                    byte[] imageByteDecode = new Base64().decodeBase64(fotoBase64);
+                    new Base64();
+					/* Transformar em um BufferedImagem */
+//                    byte[] imageByteDecode = new Base64().decodeBase64(fotoBase64);
+                    byte[] imageByteDecode = Base64.decodeBase64(fotoBase64);
                     BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
 
                     /* Pega tipo da imagem */
@@ -229,12 +231,12 @@ public class ServletUsuario extends HttpServlet {
 
 //Converte a entrada de fluxo de dados para um array de bytes
     private byte[] converteIstremParaByte(InputStream imagem) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		baos = new ByteArrayOutputStream();
         int reads = imagem.read();
         while (reads != -1) {
-            baos.write(reads);
+            		baos.write(reads);
             reads = imagem.read();
         }
-        return baos.toByteArray();
+        return 		baos.toByteArray();
     }
 }
