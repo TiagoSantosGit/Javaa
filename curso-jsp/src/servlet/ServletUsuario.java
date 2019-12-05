@@ -34,7 +34,6 @@ public class ServletUsuario extends HttpServlet {
     private static final long serialVersionUID = 1L;
     DaoUsuario daoUsuario = new DaoUsuario();
     private ByteArrayOutputStream baos;
-
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -161,7 +160,7 @@ public class ServletUsuario extends HttpServlet {
 
                     new Base64();
                     /* Transformar em um BufferedImagem */
-                    // byte[] imageByteDecode = new Base64().decodeBase64(fotoBase64);
+                    // byte[] imageByteDecode = new Base64().decodeBase64(fotoBase64);            
                     byte[] imageByteDecode = Base64.decodeBase64(fotoBase64);
                     BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageByteDecode));
 
@@ -235,9 +234,9 @@ public class ServletUsuario extends HttpServlet {
         baos = new ByteArrayOutputStream();
         int reads = imagem.read();
         while (reads != -1) {
-            baos.write(reads);
+            		baos.write(reads);
             reads = imagem.read();
         }
-        return baos.toByteArray();
+        return 		baos.toByteArray();
     }
 }

@@ -9,7 +9,7 @@
 <link
   rel="shortcut icon"
   href="resourse/img/web.ico">
-<title>Insert title here</title>
+<title>Menu principal</title>
 </head>
 <body>
   <div
