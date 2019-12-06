@@ -1,14 +1,7 @@
 package servlet;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Arc2D.Float;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,12 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import javax.xml.bind.DatatypeConverter;
-
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import beans.BeanProduto;
 import dao.DaoProduto;
@@ -34,7 +21,6 @@ import dao.DaoProduto;
 public class ServletProduto extends HttpServlet {
     private static final long serialVersionUID = 1L;
     DaoProduto daoProduto = new DaoProduto();
-    private ByteArrayOutputStream baos;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,7 +37,7 @@ public class ServletProduto extends HttpServlet {
             throws ServletException, IOException {
         try {
             String acao = request.getParameter("acao");
-            String codigo = request.getParameter("codigo");
+            String codigo = request.getParameter("produt");
             if (acao.equalsIgnoreCase("delete")) {
                 daoProduto.delete(codigo);
                 RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
@@ -61,7 +47,7 @@ public class ServletProduto extends HttpServlet {
                 if (acao.equalsIgnoreCase("editar")) {
                     BeanProduto beanCursoJsp = daoProduto.consultar(codigo);
                     RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
-                    request.setAttribute("produto", beanCursoJsp);
+                    request.setAttribute("produt", beanCursoJsp);
                     request.setAttribute("produtos", daoProduto.listar());
                     view.forward(request, response);
                 } else if (acao.equalsIgnoreCase("listartodos")) {
@@ -110,12 +96,12 @@ public class ServletProduto extends HttpServlet {
             try {
                 if (codigo == null || codigo.isEmpty()) {
                     daoProduto.Salvar(produto);
-                    request.setAttribute("msg", "Usuário gravado!");
+                    request.setAttribute("msg", "Produto gravado!");
                 } else {
                     daoProduto.atualizar(produto);
                     request.setAttribute("msg", "Produto atualizado!");
                 }
-                request.setAttribute("produto", produto);
+                request.setAttribute("produt", produto);
                 RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
                 request.setAttribute("produtos", daoProduto.listar());
                 view.forward(request, response);
