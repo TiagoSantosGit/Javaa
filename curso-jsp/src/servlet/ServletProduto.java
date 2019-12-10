@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.BeanProduto;
+import dao.DaoCategoria;
 import dao.DaoProduto;
 
 /**
@@ -21,6 +22,7 @@ import dao.DaoProduto;
 public class ServletProduto extends HttpServlet {
     private static final long serialVersionUID = 1L;
     DaoProduto daoProduto = new DaoProduto();
+    DaoCategoria daoCategoria = new DaoCategoria();
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,6 +44,7 @@ public class ServletProduto extends HttpServlet {
                 daoProduto.delete(codigo);
                 RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
                 request.setAttribute("produtos", daoProduto.listar());
+                request.setAttribute("categoria", daoCategoria.listar());
                 view.forward(request, response);
             } else {
                 if (acao.equalsIgnoreCase("editar")) {
@@ -49,10 +52,12 @@ public class ServletProduto extends HttpServlet {
                     RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
                     request.setAttribute("produt", beanCursoJsp);
                     request.setAttribute("produtos", daoProduto.listar());
+                    request.setAttribute("categoria", daoCategoria.listar());
                     view.forward(request, response);
                 } else if (acao.equalsIgnoreCase("listartodos")) {
                     RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
                     request.setAttribute("produtos", daoProduto.listar());
+                    request.setAttribute("categoria", daoCategoria.listar());
                     view.forward(request, response);
                 }
             }
@@ -85,6 +90,7 @@ public class ServletProduto extends HttpServlet {
             String unidade = request.getParameter("unidade");
             String quantidade = request.getParameter("quantidade");
             String preco = request.getParameter("preco");
+            String categoria = request.getParameter("categoria");
 
             BeanProduto produto = new BeanProduto();
             produto.setCodigo(!codigo.isEmpty() ? Long.parseLong(codigo) : 0);
@@ -92,6 +98,7 @@ public class ServletProduto extends HttpServlet {
             produto.setUnidade(unidade);
             produto.setQuantidade(Double.parseDouble(quantidade));
             produto.setPreco(Double.parseDouble(preco));
+            produto.setCategoria(categoria);
 
             try {
                 if (codigo == null || codigo.isEmpty()) {
@@ -104,6 +111,7 @@ public class ServletProduto extends HttpServlet {
                 request.setAttribute("produt", produto);
                 RequestDispatcher view = request.getRequestDispatcher("cadastroProduto.jsp");
                 request.setAttribute("produtos", daoProduto.listar());
+                request.setAttribute("categoria", daoCategoria.listar());
                 view.forward(request, response);
             } catch (Exception e1) {
                 e1.printStackTrace();

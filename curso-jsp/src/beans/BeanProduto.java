@@ -7,6 +7,7 @@ public class BeanProduto {
     private String unidade;
     private double quantidade;
     private double preco;
+    private String categoria;
 
     public Long getCodigo() {
         return codigo;
@@ -48,16 +49,19 @@ public class BeanProduto {
         this.preco = preco;
     }
 
-    @Override
-    public String toString() {
-        return "BeanProduto [codigo=" + codigo + ", nome=" + nome + ", unidade=" + unidade + ", quantidade="
-                + quantidade + ", preco=" + preco + "]";
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
         result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         long temp;
@@ -78,6 +82,11 @@ public class BeanProduto {
         if (getClass() != obj.getClass())
             return false;
         BeanProduto other = (BeanProduto) obj;
+        if (categoria == null) {
+            if (other.categoria != null)
+                return false;
+        } else if (!categoria.equals(other.categoria))
+            return false;
         if (codigo == null) {
             if (other.codigo != null)
                 return false;
@@ -98,6 +107,12 @@ public class BeanProduto {
         } else if (!unidade.equals(other.unidade))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "BeanProduto [codigo=" + codigo + ", nome=" + nome + ", unidade=" + unidade + ", quantidade="
+                + quantidade + ", preco=" + preco + ", categoria=" + categoria + "]";
     }
 
 }

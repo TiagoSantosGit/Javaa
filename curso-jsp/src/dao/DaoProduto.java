@@ -11,6 +11,7 @@ import connection.SingleConnection;
 
 public class DaoProduto {
     private Connection connection;
+    private DaoCategoria cat = new DaoCategoria();
 
     public DaoProduto() {
         connection = SingleConnection.getConnection();
@@ -19,12 +20,13 @@ public class DaoProduto {
     public void Salvar(BeanProduto produto) {
 
         try {
-            String sql = "insert into produto(nomeprodu, unidadeprodu, quantidadeprodu, precoprodu) values(?,?,?,?)";
+            String sql = "insert into produto(nomeprodu, unidadeprodu, quantidadeprodu, precoprodu, categoria) values(?,?,?,?,?)";
             PreparedStatement insert = connection.prepareStatement(sql);
             insert.setString(1, produto.getNome());
             insert.setString(2, produto.getUnidade());
             insert.setDouble(3, produto.getQuantidade());
             insert.setDouble(4, produto.getPreco());
+            insert.setLong(5, new DaoCategoria().consultaNome(produto.getCategoria()));
             insert.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,6 +50,7 @@ public class DaoProduto {
             produto.setUnidade(resultSet.getString("unidadeprodu"));
             produto.setQuantidade(resultSet.getFloat("quantidadeprodu"));
             produto.setPreco(resultSet.getFloat("precoprodu"));
+            produto.setCategoria(cat.consultaId(resultSet.getString("id")));
             listar.add(produto);
         }
         return listar;
@@ -82,6 +85,7 @@ public class DaoProduto {
             produto.setUnidade(resultSet.getString("unidadeprodu"));
             produto.setQuantidade(resultSet.getFloat("quantidadeprodu"));
             produto.setPreco(resultSet.getFloat("precoprodu"));
+            produto.setCategoria(cat.consultaId(resultSet.getString("id")));
             return produto;
         }
         return null;
@@ -90,7 +94,7 @@ public class DaoProduto {
     public void atualizar(BeanProduto produto) {
 
         try {
-            String sql = "update produto set codprodu = ?, nomeprodu = ?, unidadeprodu= ?, quantidadeprodu = ?, precoprodu = ? where codprodu = ?";
+            String sql = "update produto set codprodu = ?, nomeprodu = ?, unidadeprodu= ?, quantidadeprodu = ?, precoprodu = ?, categoria = ? where codprodu = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, produto.getCodigo());
             preparedStatement.setString(2, produto.getNome());
@@ -98,6 +102,7 @@ public class DaoProduto {
             preparedStatement.setDouble(4, produto.getQuantidade());
             preparedStatement.setDouble(5, produto.getPreco());
             preparedStatement.setLong(6, produto.getCodigo());
+            preparedStatement.setLong(7, new DaoCategoria().consultaNome(produto.getCategoria()));
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (Exception e) {

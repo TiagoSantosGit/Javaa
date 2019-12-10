@@ -77,13 +77,29 @@
             name="preco"
             value="${produt.preco}"></td>
         </tr>
-         <tr>
+        <tr>
           <td>Unidade:</td>
           <td><input
             type="text"
             id="unidade"
             name="unidade"
             value="${produt.unidade}"></td>
+          <td>Categoria:</td>
+          <td><select
+            id="categoria"
+            name="categoria">
+              <option
+                value=""
+                selected
+                disabled>Selecione Categoria</option>
+              <c:forEach
+                items="${categoria}"
+                var="categ">
+                <option
+                  value="${categ.nomeCategoria}"
+                  id="${categ.nomeCategoria}">${categ.nomeCategoria}</option>
+              </c:forEach>
+          </select></td>
         </tr>
         <tr>
           <td><input
