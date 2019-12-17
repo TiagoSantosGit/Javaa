@@ -16,63 +16,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TelaTime extends JDialog {
+public class TelaTimeFila extends JDialog {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
     private JPanel jPanel = new JPanel(new GridBagLayout());
-    private JLabel descricaoHora = new JLabel("Time Thread 1");
-    private JLabel descricaoHora2 = new JLabel("Time Thread 2");
+    private JLabel descricaoHora = new JLabel("Nome");
+    private JLabel descricaoHora2 = new JLabel("E-Mail");
     private JTextField mostraTempo = new JTextField();
     private JTextField mostraTempo2 = new JTextField();
-    private JButton jButton = new JButton("Start");
+    private JButton jButton = new JButton("Add Lista");
     private JButton jButton2 = new JButton("Stop");
 
-    private Runnable thread = new Runnable() {
+    private ImplementacaoFilaThread fila = new ImplementacaoFilaThread();
 
-        @Override
-        public void run() {
-            while (true) {
-                mostraTempo
-                        .setText(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Calendar.getInstance().getTime()));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
-    private Runnable thread2 = new Runnable() {
-
-        @Override
-        public void run() {
-            while (true) {
-                mostraTempo2
-                        .setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").format(Calendar.getInstance().getTime()));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
-    private Thread threadTime;
-    private Thread threadTime2;
-
-    public TelaTime() {
+    public TelaTimeFila() {
         setTitle("Minha tela de thread");
         setSize(new Dimension(600, 300));
         setLocationRelativeTo(null);
         setResizable(false);
-        threadTime = new Thread(thread);
-        threadTime.start();
-
 
         // controlador de posicionamento de componentes
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -88,7 +52,6 @@ public class TelaTime extends JDialog {
 
         mostraTempo.setPreferredSize(new Dimension(200, 25));
         gridBagConstraints.gridy++;
-        mostraTempo.setEditable(false);
         jPanel.add(mostraTempo, gridBagConstraints);
 
         descricaoHora2.setPreferredSize(new Dimension(200, 25));
@@ -97,7 +60,6 @@ public class TelaTime extends JDialog {
 
         mostraTempo2.setPreferredSize(new Dimension(200, 25));
         gridBagConstraints.gridy++;
-        mostraTempo2.setEditable(false);
         jPanel.add(mostraTempo2, gridBagConstraints);
 
         gridBagConstraints.gridwidth = 1;
@@ -115,24 +77,33 @@ public class TelaTime extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                threadTime2 = new Thread(thread2);
-                threadTime2.start();
-                jButton.setEnabled(false);
-                jButton2.setEnabled(true);
+                for (int qtd = 0; qtd < 100; qtd++) { // simulando 100 evios em massa
+
+                    ObjetoFilaThread filaThread = new ObjetoFilaThread();
+                    filaThread.setNome(mostraTempo.getText());
+                    filaThread.setEmail(mostraTempo2.getText() + " - " + qtd);
+                    // fila.add(filaThread);
+                    ImplementacaoFilaThread.add(filaThread);
+                }
             }
         });
-        
+
         jButton2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                threadTime2.stop();
-                jButton.setEnabled(true);
-                jButton2.setEnabled(false);
+                if (jButton2.getText().equals("Stop")) {
+                    fila.stop();
+                    jButton2.setText("Start");
+                } else {
+                    fila.start();
+                    jButton2.setText("Stop");
+                }
             }
         });
 
+        fila.start();
         add(jPanel, BorderLayout.WEST);
         setVisible(true);// tela visivel na tela, sempre o ultimo comando
     }
