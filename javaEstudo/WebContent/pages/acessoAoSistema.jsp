@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>Página acessada somente após a autenticação</h3>
+<h3>Bem vindo oa sistema</h3>
 
 </body>
 </html>

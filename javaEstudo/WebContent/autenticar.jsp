@@ -13,20 +13,26 @@
   <form
     action="ServletAutenticacao"
     method="post">
+    <input
+      readonly="readonly"
+      type="hidden"
+      id="url"
+      name="url"
+      value="<%= request.getParameter("url")%>">
     <table>
       <tr>
         <td>Login:</td>
         <td><input
           type="text"
           id="login"
-          name "login></td>
+          name="login"></td>
       </tr>
       <tr>
         <td>Senha:</td>
         <td><input
           type="password"
           id="senha"
-          name "senha></td>
+          name="senha"></td>
       </tr>
       <tr>
         <td></td>

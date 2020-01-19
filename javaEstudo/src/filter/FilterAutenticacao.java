@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import user.UserLogado;
 
 @WebFilter(
-           urlPatterns = { "/pages/acessoAoSistema.jsp" })
+           urlPatterns = { "/pages/capturarExececoes.jsp", "/pages/acessoAoSistema.jsp"})
 public class FilterAutenticacao implements Filter {
 
 // faz alguma coisa quando a aplicação e derrubada
@@ -32,10 +32,11 @@ public class FilterAutenticacao implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         session.getAttribute("usuario");
+        String urlParaAutenticar = req.getServletPath();
 
         UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
-        if (userLogado == null) { // usuario não logado
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp");
+        if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não logado
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url="+urlParaAutenticar);
             dispatcher.forward(request, response);
             return; // para o processamento para redirecionar
         }

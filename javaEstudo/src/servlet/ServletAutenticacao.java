@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import user.UserLogado;
 
-@WebServlet("/ServletAutenticacao")
+@WebServlet("/pages/ServletAutenticacao")
 public class ServletAutenticacao extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -22,27 +22,33 @@ public class ServletAutenticacao extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+        if (Boolean.parseBoolean(request.getParameter("deslogar"))) {
+            HttpServletRequest req = (HttpServletRequest) request;
+            HttpSession session = req.getSession();
+            session.invalidate();
+            response.sendRedirect("../index.jsp");
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        
+        String url = request.getParameter("url");
+
         // neste momento pode ser feito uma validação do banco de dados
         if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("123")) {
-        
+
             UserLogado userLogado = new UserLogado();
             userLogado.setLogin(login);
             userLogado.setSenha(senha);
-        
+
             HttpServletRequest req = (HttpServletRequest) request;
             HttpSession session = req.getSession();
-            session.getAttribute("usuario");
-        
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/AcessoAoSistema.jsp");
+            session.setAttribute("usuario", userLogado);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp");
