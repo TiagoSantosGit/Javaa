@@ -2,6 +2,9 @@
   language="java"
   contentType="text/html; charset=ISO-8859-1"
   pageEncoding="ISO-8859-1"%>
+<%@ taglib
+  uri="http://java.sun.com/jsp/jstl/core"
+  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,32 +27,51 @@
     width="200"
     height="200">
 
+  <table>
+    <c:forEach
+      items="${listarUserImagem}"
+      var="user">
+      <tr>
+        <td>${user.id}</td>
+        <td>${user.login}</td>
+        <td><a href="fileUpload?acao=download&iduser=${user.id}">Download Imagem</a></td>
+      </tr>
+
+    </c:forEach>
+
+  </table>
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <a href="fileUpload">Carregar imagens</a>
 </body>
 
 <script type="text/javascript">
 	function uploadFile() {
-		var taget = document.querySelector("img");
+		var target = document.querySelector("img");
 		var file = document.querySelector("input[type=file]").files[0];
 		var reader = new FileReader();
 		reader.onload = function() {
 			target.src = reader.result;
-		};
-		if (file) {
-			reader.readAsDataURL(file);
 			/////----- Upload ajax -----
 
 			$.ajax({
 				method : "POST",
 				url : "fileUpload",
 				data : {
-					fileUpload : fileUpload
+					fileUpload : target.src
 				}
 			}).done(function(response) {
 				alert("Sucesso: " + response);
 			}).fail(function(hrx, status, errorThrown) {
 				alert("Error: " + hxr.responseText);
 			});
-		    /////-----
+			/////-----
+		};
+		if (file) {
+			reader.readAsDataURL(file);
 		} else {
 			target.src = "";
 		}

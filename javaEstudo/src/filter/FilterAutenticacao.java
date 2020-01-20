@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,11 +14,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import connection.ConnectionDataBase;
 import user.UserLogado;
 
 @WebFilter(
-           urlPatterns = { "/pages/capturarExececoes.jsp", "/pages/acessoAoSistema.jsp"})
+           urlPatterns = { "/pages/capturarExececoes.jsp", "/pages/acessoAoSistema.jsp" })
 public class FilterAutenticacao implements Filter {
+    private static Connection connection;
 
 // faz alguma coisa quando a aplicação e derrubada
     @Override
@@ -35,8 +38,9 @@ public class FilterAutenticacao implements Filter {
         String urlParaAutenticar = req.getServletPath();
 
         UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
-        if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não logado
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url="+urlParaAutenticar);
+        if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não
+                                                                                                       // logado
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url=" + urlParaAutenticar);
             dispatcher.forward(request, response);
             return; // para o processamento para redirecionar
         }
@@ -48,6 +52,7 @@ public class FilterAutenticacao implements Filter {
 // executa alguma coisa quando a aplicação é iniciada
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        connection = ConnectionDataBase.getConnection();
     }
 
 }
