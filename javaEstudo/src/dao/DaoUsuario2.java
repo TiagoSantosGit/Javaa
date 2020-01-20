@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import connection.ConnectionDataBase;
+import connection.ConnectionDataBase2;
 import entidades.Usuario;
 
-public class DaoUsuario {
+public class DaoUsuario2 {
     private Connection connection;
 
-    public DaoUsuario() {
-        connection = ConnectionDataBase.getConnection();
+    public DaoUsuario2() {
+        connection = ConnectionDataBase2.getConnection();
     }
 
     public List<Usuario> listar() throws Exception {

@@ -22,22 +22,16 @@
     style="width: 100%">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
-        <th>Salary</th>
+        <th>Id</th>
+        <th>Login</th>
+        <th>Senha</th>
       </tr>
     </thead>
     <tfoot>
       <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Start date</th>
-        <th>Salary</th>
+        <th>Id</th>
+        <th>Login</th>
+        <th>Senha</th>
       </tr>
     </tfoot>
   </table>
