@@ -30,6 +30,9 @@
       <td><a href="pages/dataTable.jsp">DataTable JQuery</a></td>
     </tr>
     <tr>
+      <td><a href="pages/relatorio.jsp">Relatorio JasperReports</a></td>
+    </tr>
+    <tr>
       <td><a href="pages/ServletAutenticacao?deslogar=true">Deslogar</a></td>
     </tr>
   </table>
