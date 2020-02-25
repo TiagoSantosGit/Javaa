@@ -117,7 +117,7 @@
 
 				<Context docBase="front-end" path="/front-end" reloadable="true" source="org.eclipse.jst.jee.server:front-end"/>
 				<Context docBase="SalaoSiste" path="/SalaoSiste" reloadable="true" source="org.eclipse.jst.jee.server:SalaoSiste"/>
-			<Context docBase="javaEstudo" path="/javaEstudo" reloadable="true" source="org.eclipse.jst.jee.server:javaEstudo"/></Host>
+			<Context docBase="javaEstudo" path="/javaEstudo" reloadable="true" source="org.eclipse.jst.jee.server:javaEstudo"/><Context docBase="DynamicSystem" path="/DynamicSystem" reloadable="true" source="org.eclipse.jst.jee.server:DynamicSystem"/></Host>
 		</Engine>
 	</Service>
 </Server>
