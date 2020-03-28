@@ -113,11 +113,11 @@
 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
 
-				<Context docBase="curso-jsp" path="/curso-jsp" reloadable="true" source="org.eclipse.jst.jee.server:curso-jsp"/>
+				
 
-				<Context docBase="front-end" path="/front-end" reloadable="true" source="org.eclipse.jst.jee.server:front-end"/>
-				<Context docBase="SalaoSiste" path="/SalaoSiste" reloadable="true" source="org.eclipse.jst.jee.server:SalaoSiste"/>
-			<Context docBase="javaEstudo" path="/javaEstudo" reloadable="true" source="org.eclipse.jst.jee.server:javaEstudo"/><Context docBase="DynamicSystem" path="/DynamicSystem" reloadable="true" source="org.eclipse.jst.jee.server:DynamicSystem"/></Host>
+				
+				
+			<Context docBase="javaEstudo" path="/javaEstudo" reloadable="true" source="org.eclipse.jst.jee.server:javaEstudo"/><Context docBase="curso-jsp" path="/curso-jsp" reloadable="true" source="org.eclipse.jst.jee.server:curso-jsp"/><Context docBase="DynamicSystem" path="/DynamicSystem" reloadable="true" source="org.eclipse.jst.jee.server:DynamicSystem"/><Context docBase="front-end" path="/front-end" reloadable="true" source="org.eclipse.jst.jee.server:front-end"/><Context docBase="SalaoSiste" path="/SalaoSiste" reloadable="true" source="org.eclipse.jst.jee.server:SalaoSiste"/></Host>
 		</Engine>
 	</Service>
 </Server>
