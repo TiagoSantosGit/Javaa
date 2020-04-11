@@ -37,6 +37,7 @@ public class ServletDownloadFile extends HttpServlet {
 	    String tipoExporta = request.getParameter("tipoExportar");
 	    List<Usuario> usuarios = daoUsuario.listar();
 	   
+	    @SuppressWarnings("rawtypes")
 	    String fileUrl = relatorioService.gerarRelatorio(usuarios, new HashMap(), "rel_usuario", "rel_usuario",
 		    request.getServletContext(), tipoExporta);
 	    /* Construir o caminho completo e absoluto do arquivo */

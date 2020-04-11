@@ -124,7 +124,8 @@ public class TelaTime extends JDialog {
         
         jButton2.addActionListener(new ActionListener() {
 
-            @Override
+            @SuppressWarnings("deprecation")
+	    @Override
             public void actionPerformed(ActionEvent e) {
 
                 threadTime2.stop();

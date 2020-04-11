@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
+@SuppressWarnings({"deprecation", "rawtypes", "unchecked" })
 public class RelatorioService implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,7 +31,6 @@ public class RelatorioService implements Serializable {
     private String caminhoSubReport_Dir = "";
     private File arquivoGerado = null;
 
-    @SuppressWarnings("deprecation")
     public String gerarRelatorio(List<?> listaDataBeanCollection, HashMap hashMap, String nomeRelatorioJasper,
 	    String nomeRelatorioSaida, ServletContext servletContext, String tipoExportar) throws Exception {
 	/*

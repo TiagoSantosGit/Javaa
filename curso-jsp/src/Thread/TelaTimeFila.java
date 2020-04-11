@@ -88,7 +88,8 @@ public class TelaTimeFila extends JDialog {
 
         jButton2.addActionListener(new ActionListener() {
 
-            @Override
+            @SuppressWarnings("deprecation")
+	    @Override
             public void actionPerformed(ActionEvent e) {
 
                 if (jButton2.getText().equals("Stop")) {

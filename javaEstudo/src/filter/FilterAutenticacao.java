@@ -19,8 +19,10 @@ import connection.ConnectionDataBase2;
 import connection.ConnectionDataBaseMySQL;
 import user.UserLogado;
 
+@SuppressWarnings("unused")
 @WebFilter(urlPatterns = { "/pages/*" })
 public class FilterAutenticacao implements Filter {
+
     private static Connection connection;
     private static Connection connection2;
     private static Connection connectionMySQL;
@@ -33,31 +35,31 @@ public class FilterAutenticacao implements Filter {
 // imtercepta todas as requisições
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+	    throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession();
-        session.getAttribute("usuario");
-        String urlParaAutenticar = req.getServletPath();
+	HttpServletRequest req = (HttpServletRequest) request;
+	HttpSession session = req.getSession();
+	session.getAttribute("usuario");
+	String urlParaAutenticar = req.getServletPath();
 
-        UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
-        if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não
-                                                                                                       // logado
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url=" + urlParaAutenticar);
-            dispatcher.forward(request, response);
-            return; // para o processamento para redirecionar
-        }
+	UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
+	if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não
+												       // logado
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url=" + urlParaAutenticar);
+	    dispatcher.forward(request, response);
+	    return; // para o processamento para redirecionar
+	}
 
-        chain.doFilter(request, response);
-        System.out.println("interceptando");
+	chain.doFilter(request, response);
+	System.out.println("interceptando");
     }
 
 // executa alguma coisa quando a aplicação é iniciada
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        connection = ConnectionDataBase.getConnection();
-        connection2 = ConnectionDataBase2.getConnection();
-        connectionMySQL = ConnectionDataBaseMySQL.getConnection();
+	connection = ConnectionDataBase.getConnection();
+	connection2 = ConnectionDataBase2.getConnection();
+	connectionMySQL = ConnectionDataBaseMySQL.getConnection();
     }
 
 }
