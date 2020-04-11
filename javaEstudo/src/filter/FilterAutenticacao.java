@@ -19,8 +19,7 @@ import connection.ConnectionDataBase2;
 import connection.ConnectionDataBaseMySQL;
 import user.UserLogado;
 
-@WebFilter(
-           urlPatterns = { "/pages/capturarExececoes.jsp", "/pages/acessoAoSistema.jsp" })
+@WebFilter(urlPatterns = { "/pages/*" })
 public class FilterAutenticacao implements Filter {
     private static Connection connection;
     private static Connection connection2;

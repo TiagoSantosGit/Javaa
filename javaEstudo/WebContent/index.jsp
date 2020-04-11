@@ -33,6 +33,12 @@
             <td><a href="pages/Datas.jsp">Datas</a></td>
         </tr>
         <tr>
+            <td><a href="pages/Calendar.jsp">Calendário</a></td>
+        </tr>
+        <tr>
+            <td><a href="pages/GanttView.jsp">Gantt View</a></td>
+        </tr>
+        <tr>
             <td><a href="pages/ServletAutenticacao?deslogar=true">Deslogar</a></td>
         </tr>
     </table>

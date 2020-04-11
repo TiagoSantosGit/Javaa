@@ -10,7 +10,7 @@
 <title>Datas</title>
 </head>
 <body>
-    <form action="calcularDataFinal" method="post">
+    <form action="CalcularDataFinal" method="post">
         <label>Data Inicial</label> <input id="data" name="data"> <label>Tempo em
             horas</label> <input type="text" id="tempo" name="tempo"> <input type="submit"
             value="Calcular"
@@ -20,6 +20,8 @@
     <br />
     <label>Data final</label>
     <input type="text" id="dataFinal" name="dataFinal" readonly="readonly" value="${dataFinal}">
+    <label>Total de dias</label>
+    <input type="text" id="dias" name="dias" readonly="readonly" value="${dias}">
 </body>
 <script type="text/javascript">
     $(function() {
