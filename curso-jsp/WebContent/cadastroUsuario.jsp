@@ -6,9 +6,14 @@
 <html>
 <head>
 <!-- Adicionando JQuery -->
+<!-- 
+integrity é autoexplicativo: verificação de integridade. Isso é um checksum para garantir que o script que foi baixado não teve nada corrompido nem é uma versão desatualizada no seu HD, independente do motivo.
+crossorigin é pra habilitar CORS, e com isso informações de erros de execução são recebidos pelo seu site. Só funciona se o CORS estiver habilitado do outro lado, que no caso dos CDN's, isso normalmente está ativo.
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"
 ></script>
+-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link rel=stylesheet href="resourse/css/cadastro.css">
 <link rel="shortcut icon" href="resourse/img/web.ico">
 <meta charset="ISO-8859-1">
