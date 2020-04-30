@@ -356,8 +356,8 @@ behavior: {
             if (!start || !end) {
                 return 0;
             }
-            start = Date.parse(start);
-            end = Date.parse(end);
+            start = new Date(start);
+            end = new Date(end);
             if (start.getYear() == 1901 || end.getYear() == 8099) {
                 return 0;
             }
@@ -377,8 +377,8 @@ behavior: {
             maxEnd = new Date();
             for (var i = 0; i < data.length; i++) {
                 for (var j = 0; j < data[i].series.length; j++) {
-                    var start = Date.parse(data[i].series[j].start);
-                    var end = Date.parse(data[i].series[j].end)
+                    var start = new Date(data[i].series[j].start);
+                    var end = new Date(data[i].series[j].end)
                     if (i == 0 && j == 0) {
                         minStart = start;
                         maxEnd = end;

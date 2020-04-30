@@ -16,4 +16,4 @@ No código está comentado as suas funções.
 
 ### Fonte
 
-Preparado por **stackedit**, em [https://stackedit.io/editor][1]:
+Preparado por **stackedit**, em [https://stackedit.io/editor]:
