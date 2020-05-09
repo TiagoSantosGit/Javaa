@@ -45,6 +45,7 @@ public class RelatorioService implements Serializable {
 
 	if (caminhoRelatorio == null || (caminhoRelatorio != null && caminhoRelatorio.isEmpty()) || !file.exists()) {
 	    caminhoRelatorio = this.getClass().getResource(FOLDER_RELATORIOS).getPath();
+	    caminhoRelatorio = caminhoRelatorio.replaceAll("%20", " "); 
 	    SERATOR = "";
 	}
 

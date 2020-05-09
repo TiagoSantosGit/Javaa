@@ -92,9 +92,10 @@ public class DaoCategoria {
 
     public String consultaId(String id) throws Exception {
 
-        String sql = "select nomecategoria from categoria where id = ?";
+        
+    	String sql = "select nomecategoria from categoria where id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, id);
+        preparedStatement.setInt(1, Integer.parseInt(id));
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getString("nomecategoria");

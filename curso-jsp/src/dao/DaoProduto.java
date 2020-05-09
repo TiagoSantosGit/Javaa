@@ -50,7 +50,7 @@ public class DaoProduto {
             produto.setUnidade(resultSet.getString("unidadeprodu"));
             produto.setQuantidade(resultSet.getFloat("quantidadeprodu"));
             produto.setPreco(resultSet.getFloat("precoprodu"));
-            produto.setCategoria(cat.consultaId(resultSet.getString("id")));
+            produto.setCategoria(cat.consultaId(resultSet.getString("categoria")));
             listar.add(produto);
         }
         return listar;

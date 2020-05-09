@@ -20,67 +20,67 @@ import service.RelatorioService;
 
 @WebServlet("/pages/ServletDownloadFile")
 public class ServletDownloadFile extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private DaoUsuario daoUsuario = new DaoUsuario();
-    private RelatorioService relatorioService = new RelatorioService();
+	private static final long serialVersionUID = 1L;
+	private DaoUsuario daoUsuario = new DaoUsuario();
+	private RelatorioService relatorioService = new RelatorioService();
 
-    public ServletDownloadFile() {
-	super();
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-
-	try {
-
-	    ServletContext context = request.getServletContext();
-	    String tipoExporta = request.getParameter("tipoExportar");
-	    List<Usuario> usuarios = daoUsuario.listar();
-	   
-	    @SuppressWarnings("rawtypes")
-	    String fileUrl = relatorioService.gerarRelatorio(usuarios, new HashMap(), "rel_usuario", "rel_usuario",
-		    request.getServletContext(), tipoExporta);
-	    /* Construir o caminho completo e absoluto do arquivo */
-	    File downloadFile = new File(fileUrl);
-	    FileInputStream inputStream = new FileInputStream(downloadFile);
-
-	    /* Obter o tipo MIME do arquivo */
-	    String mimeType = context.getMimeType(fileUrl);
-
-	    if (mimeType == null) {
-		/* Define como tipo binário se mapeamento mime não for encontrado */
-		mimeType = "application/octet-stream";
-	    }
-
-	    /* Define atributos para resposta */
-	    response.setContentType(mimeType);
-	    response.setContentLength((int) downloadFile.length());
-
-	    /* Definir cabeçalhos para a resposta */
-	    String headerKey = "Content-Dispositon";
-	    String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
-	    response.setHeader(headerKey, headerValue);
-
-	    /* Obter fluxo de saída da resposta */
-	    OutputStream outputStream = response.getOutputStream();
-	    byte[] buffer = new byte[4096];
-	    int bytesReader = -1;
-
-	    /* Escrever bytes lidos a partir do fluxo de entrada para o fluxo da saída */
-	    while ((bytesReader = inputStream.read(buffer)) != -1) {
-		outputStream.write(buffer, 0, bytesReader);
-	    }
-	    
-	    inputStream.close();
-	    outputStream.close();
-
-	} catch (Exception e) {
-	    e.printStackTrace();
+	public ServletDownloadFile() {
+		super();
 	}
-    }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	    throws ServletException, IOException {
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+
+			ServletContext context = request.getServletContext();
+			String tipoExporta = request.getParameter("tipoExportar");
+			List<Usuario> usuarios = daoUsuario.listar();
+
+			@SuppressWarnings("rawtypes")
+			String fileUrl = relatorioService.gerarRelatorio(usuarios, new HashMap(), "rel_usuario", "rel_usuario",
+					context, tipoExporta);
+			/* Construir o caminho completo e absoluto do arquivo */
+			File downloadFile = new File(fileUrl);
+			FileInputStream inputStream = new FileInputStream(downloadFile);
+
+			/* Obter o tipo MIME do arquivo */
+			String mimeType = context.getMimeType(fileUrl);
+
+			if (mimeType == null) {
+				/* Define como tipo binário se mapeamento mime não for encontrado */
+				mimeType = "application/octet-stream";
+			}
+
+			/* Define atributos para resposta */
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
+
+			/* Definir cabeçalhos para a resposta */
+			String headerKey = "Content-Dispositon";
+			String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+
+			/* Obter fluxo de saída da resposta */
+			OutputStream outputStream = response.getOutputStream();
+			byte[] buffer = new byte[4096];
+			int bytesReader = -1;
+
+			/* Escrever bytes lidos a partir do fluxo de entrada para o fluxo da saída */
+			while ((bytesReader = inputStream.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, bytesReader);
+			}
+
+			inputStream.close();
+			outputStream.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
 
 }
