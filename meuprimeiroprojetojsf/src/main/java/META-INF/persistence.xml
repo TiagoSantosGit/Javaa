@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<!-- unidade de persistência com o nome do projeto -->
 	<persistence-unit name="meuprimeiroprojetojsf">
+		<!-- Implementação do JPA, no nosso caso hibernate versão abaixo da 5.2.x -->
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+		<!-- Implementação do JPA, no nosso caso hibernate versão acima da 5.2.x -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<!-- Aqui são listadas todas as entidades -->
+		<class>br.com.entidades.Pessoa</class>
+		<properties>
+			<!-- Dados de conexão com o banco JDCB -->
+			<property name="hibernate.connection.driver_class"
+				value="org.postgresql.Driver" />
+			<property name="hibernate.connection.url"
+				value="jdbc:postgresql://localhost:5432/posjavahibernate" />
+			<property name="hibernate.connection.username"
+				value="postgres" />
+			<property name="hibernate.connection.password" value="tiago" />
+			<!-- Configurações específicas do hibernate -->
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
 	</persistence-unit>
 </persistence>

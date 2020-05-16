@@ -5,7 +5,7 @@
 	version="2.3">
 
 	<navigation-rule>
-		<from-view-id>/index.xhtml</from-view-id>
+		<from-view-id>/primeiraPagina.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>explicita</from-outcome>
 			<to-view-id>/navegacaoExplicita.jsf</to-view-id>

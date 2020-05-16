@@ -19,14 +19,14 @@
 		<h:outputLabel value="Nome: " for="nome" />
 		<h:inputText id="nome" onclick="this.value='Show'"
 			onchange="this.value = this.value.toUpperCase();" /> <!-- usado para gravar -->
-		<h:inputSecret id="senha" value="#{pessoaBean.senha}" />
-		<h:inputTextarea id="text" value="#{pessoaBean.texto}" rows="10"
+		<h:inputSecret id="senha" value="#{pessoaBean2.senha}" />
+		<h:inputTextarea id="text" value="#{pessoaBean2.texto}" rows="10"
 			cols="10" />
 		<h:commandButton value="Clicar" onclick="alterarValorDoCampo();" />
 		<br />
 		<br />
 		<h:commandButton value="Navegar" action="primeiraPagina" />
-		<h:commandButton value="Navegacao Explicita" action="explicita" />
+		<h:commandButton value="Navegacao Explicita" action="navegacaoExplicita" />
 
 	</h:form>
 </h:body>

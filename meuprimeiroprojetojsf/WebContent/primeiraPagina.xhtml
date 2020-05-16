@@ -1,19 +1,89 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>Olá jsf</title>
+	<title>Cadastro pessoa</title>
 </h:head>
 <h:body>
 	<h:form id="formPessoa">
-		<h1 align="center">Formulário</h1>
-		Nome:
-		<h:inputText id="campoNome" value="#{pessoaBean.nome}" />
-		<h:commandButton binding="#{pessoaBean.commandButton}" value="Adiciona nome" action="#{pessoaBean.addNome}" />
-		<h:dataTable value="#{pessoaBean.nomes}" var="n">
+		<h:panelGrid columns="3" width="100%">
+			<h:graphicImage height="41" width="177"
+				value="./resources/img/primefaces.png" />
+			<h1 align="center">Formulário JSF</h1>
+			<h:graphicImage height="41" width="177" library="img"
+				name="primefaces.png" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Cadastro em jsf" />
+			</f:facet>
+			<h:outputLabel value="ID:" />
+			<h:outputText value="#{pessoaBean.pessoa.id}" />
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{pessoaBean.pessoa.nome}" />
+			<h:outputLabel value="Sobrenome:" />
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:outputLabel value="Idade:" />
+			<h:inputText value="#{pessoaBean.pessoa.idade}" />
+			<h:outputLabel value="Nascimento:" />
+			<!-- 		<h:inputText value="#{pessoaBean.pessoa.dataNascimento}" /> -->
+			<h:outputLabel value="Sexo:" />
+			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
+				required="false">
+				<f:selectItem itemLabel="[- Selecione -]" noSelectionOption="true" />
+				<f:selectItem itemValue="M" itemLabel="Sexo Masculino" />
+				<f:selectItem itemValue="F" itemLabel="Sexo Feminino" />
+			</h:selectOneMenu>
+			<h:outputLabel value="Frameworks:" />
+			<h:selectManyMenu id="campoFrameworks" style="height:150px"
+				value="${pessoaBean.pessoa.frameworks}">
+				<f:selectItem itemValue="Hibernate" />
+				<f:selectItem itemValue="Spring MVC" />
+				<f:selectItem itemValue="JPA" />
+				<f:selectItem itemValue="PrimeFaces" />
+				<f:selectItem itemValue="JSF" />
+			</h:selectManyMenu>
+			<h:outputText />
+			<h:panelGroup>
+				<h:commandButton value="Novo" action="#{pessoaBean.novo}" />
+				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}" />
+				<h:commandButton value="Remover" action="#{pessoaBean.remove}" />
+			</h:panelGroup>
+		</h:panelGrid>
+		<br />
+		<br />
+		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="3"
+			cellpadding="3" cellspacing="3">
+			<f:facet name="header">Lista de pessoas cadastradas</f:facet>
 			<h:column>
-				<h:outputText value="#{n}" />
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{pessoa.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{pessoa.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{pessoa.sobrenome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Idade</f:facet>
+				<h:outputText value="#{pessoa.idade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ação</f:facet>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+				</h:commandLink>
+				<h:outputLabel value=" " />
+				<h:commandLink value="Excluir" action="#{pessoaBean.remove}">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaBean.pessoa}" />
+				</h:commandLink>
 			</h:column>
 		</h:dataTable>
 	</h:form>

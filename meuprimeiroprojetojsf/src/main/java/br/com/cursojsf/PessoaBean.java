@@ -1,73 +1,69 @@
 package br.com.cursojsf;
 
+import javax.faces.bean.ViewScoped;
+
+import br.com.dao.DaoGeneric;
+import br.com.entidades.Pessoa;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ViewScoped;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.html.HtmlCommandButton;
 
-//@RequestScoped //mantem o bean até o request
-@ViewScoped // mantem o bean até a página for redirecionada
-//@SessionScoped // mantem o bean na mesma sessão (navegador)
-//@ApplicationScoped // mantem o bean de todos os usúarios de todas as sessoes
+@ViewScoped
 @ManagedBean(name = "pessoaBean")
 public class PessoaBean {
+	private Pessoa pessoa = new Pessoa();
+	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
-	private String nome;
-	private String senha;
-	private String texto;
-	private List<String> nomes = new ArrayList<String>();
-	private HtmlCommandButton commandButton;
-
-	public String addNome() {
-		nomes.add(nome);
-		if (nomes.size() > 3) {
-			commandButton.setDisabled(true);
-		}
-		return "paginaNavegada?faces-redirect=true";
-		// chamado pelo action se retorna null ou vazio fica na mesma página
-		// no action actionListener não exige retorno
+	public String salvar() {
+		pessoa = daoGeneric.merge(pessoa);
+		// pessoa = new Pessoa(); // deixa o formulário limpo
+		carregarPessoas();
+		return "";
 	}
 
-	public String getNome() {
-		return nome;
+	public String novo() {
+		pessoa = new Pessoa(); // deixa o formulário limpo
+		return "";
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public String remove() {
+		daoGeneric.deletePorId(pessoa);
+		pessoa = new Pessoa(); // deixa o formulário limpo
+		carregarPessoas();
+		return "";
 	}
 
-	public String getSenha() {
-		return senha;
+	@PostConstruct  //carrega automático com a página
+	public void carregarPessoas() {
+		pessoas = daoGeneric.getListEntity(Pessoa.class);
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public String getTexto() {
-		return texto;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public DaoGeneric<Pessoa> getDaoGeneric() {
+		return daoGeneric;
 	}
 
-	public List<String> getNomes() {
-		return nomes;
+	public void setDaoGeneric(DaoGeneric<Pessoa> daoGeneric) {
+		this.daoGeneric = daoGeneric;
 	}
 
-	public void setNomes(List<String> nomes) {
-		this.nomes = nomes;
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 
-	public HtmlCommandButton getCommandButton() {
-		return commandButton;
-	}
-
-	public void setCommandButton(HtmlCommandButton commandButton) {
-		this.commandButton = commandButton;
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
 }
