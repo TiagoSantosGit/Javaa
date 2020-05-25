@@ -5,7 +5,7 @@
 
 	<groupId>pos-java-maven-hibernate</groupId>
 	<artifactId>pos-java-maven-hibernate</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>pos-java-maven-hibernate</name>

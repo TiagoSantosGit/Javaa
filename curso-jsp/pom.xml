@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>curso-jsp</groupId>
 	<artifactId>curso-jsp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -55,4 +54,5 @@
 			<version>1.2</version>
 		</dependency>
 	</dependencies>
+	<version>1.0.1</version>
 </project>

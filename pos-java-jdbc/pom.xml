@@ -5,7 +5,7 @@
 
 	<groupId>pos-java-jdbc</groupId>
 	<artifactId>pos-java-jdbc</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>pos-java-jdbc</name>
