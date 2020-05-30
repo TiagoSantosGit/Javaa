@@ -2,6 +2,7 @@ package br.com.converter;
 
 import java.io.Serializable;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -9,14 +10,12 @@ import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import br.com.JPAUtil.JPAUtil;
 import br.com.entidades.Cidades;
 
 @FacesConverter(forClass = Cidades.class, value = "cidadeConverter")
 public class CidadesConverter implements Converter, Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	// Retorna o objeto inteiro
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String codigoCidade) {
@@ -24,10 +23,11 @@ public class CidadesConverter implements Converter, Serializable {
 		 * FacesContext -> contexto do JSF UIComponent -> o componente JSF usado String
 		 * -> código do objeto
 		 */
-		EntityManager entityManeger = JPAUtil.getEntityManager();
-		EntityTransaction entityTransaction = entityManeger.getTransaction();
+		EntityManager entityManager = CDI.current().select(EntityManager.class).get();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		Cidades Cidades = (Cidades) entityManeger.find(Cidades.class, Long.parseLong(codigoCidade));
+		Cidades Cidades = (Cidades) entityManager.find(Cidades.class, Long.parseLong(codigoCidade));
+		entityTransaction.commit();
 		return Cidades;
 	}
 

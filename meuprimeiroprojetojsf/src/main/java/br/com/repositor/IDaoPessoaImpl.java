@@ -1,30 +1,34 @@
 package br.com.repositor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import br.com.JPAUtil.JPAUtil;
 import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 
-public class IDaoPessoaImpl implements IDaoPessoa {
+@Named
+public class IDaoPessoaImpl implements IDaoPessoa, Serializable {
 
+	private static final long serialVersionUID = 5615976833204224026L;
+	@Inject
+	private EntityManager entityManager;
+	
 	@Override
 	public Pessoa consultarUsuario(String login, String senha) {
-
 		Pessoa pessoa = null;
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		pessoa = (Pessoa) entityManager
 				.createQuery("select p from Pessoa p where p.login = '" + login + "' and p.senha = '" + senha + "'")
 				.getSingleResult();
 		entityTransaction.commit();
-		entityManager.close();
 		return pessoa;
 	}
 
@@ -32,13 +36,11 @@ public class IDaoPessoaImpl implements IDaoPessoa {
 	public List<SelectItem> listaEstados() {
 
 		List<SelectItem> selectItems = new ArrayList<SelectItem>();
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		@SuppressWarnings("unchecked")
 		List<Estados> estados = entityManager.createQuery(" from Estados").getResultList();
 		entityTransaction.commit();
-		entityManager.close();
 		for (Estados estado : estados) {
 			// selectItems.add(new SelectItem(estado.getId(), estado.getNome()));
 			selectItems.add(new SelectItem(estado, estado.getNome()));

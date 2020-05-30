@@ -30,18 +30,18 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-            <!-- configuracao do pool c2p0 do jpa -->
-			<!-- minimo de conexoes ou portas disponiveis -->
-			<property name="hibernate.c3p0.min_size" value="5"/>
-			<!-- maximo de portas que terá abertas -->
-			<property name="hibernate.c3p0.max_size" value="5"/>
-			<!-- o numero de segundos em que uma conexao inativa é mantida no pool -->
-			<property name="hibernate.c3p0.timeout" value="300"/>
-			<!-- numero total de instruções, transações, operações no banco de dados mantida em cache -->
-			<property name="hibernate.c3p0.max_statements" value="50"/>
+			<!-- Configuração do pool c3p0 do JPA -->
+			<!-- mínimo de conexões ou portas disponíveis -->
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<!-- máximo de portas que ficarão abertas -->
+			<property name="hibernate.c3p0.max_size" value="5" />
+			<!-- o numero de segundos em que uma conexão inativa é mantida no pool -->
+			<property name="hibernate.c3p0.timeout" value="300" />
+			<!-- numero total de instruções, transações, operações no banco de dados 
+				mantida em cache -->
+			<property name="hibernate.c3p0.max_statements" value="50" />
 			<!-- tempo ocioso em segundos antes de uma conexão ser validada automaticamente -->
-            <property name="hibernate.c3p0.idle_test_period" value="120"/>
-									
+			<property name="hibernate.c3p0.idle_test_period" value="120" />
 		</properties>
 	</persistence-unit>
 </persistence>

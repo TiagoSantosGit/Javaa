@@ -1,72 +1,70 @@
 package br.com.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import br.com.JPAUtil.JPAUtil;
 
-public class DaoGeneric<T> {
+@Named
+public class DaoGeneric<T> implements Serializable {
+
+	private static final long serialVersionUID = 421151138924930235L;
+	@Inject
+	private EntityManager entityManager;
+	@Inject
+	private JPAUtil jpaUtil;
 
 	public void salvar(T entidade) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		entityManager.persist(entidade); // somente salva no banco
 		// entityManager.merge(entidade);
 		entityTransaction.commit();
-		entityManager.close();
 	}
 
 	public T merge(T entidade) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		T retorno = entityManager.merge(entidade);
 		entityTransaction.commit();
-		entityManager.close();
 		return retorno;
 	}
 
 	public void delete(T entidade) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		entityManager.remove(entidade);
 		entityTransaction.commit();
-		entityManager.close();
 	}
 
 	public void deletePorId(T entidade) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		Object id = JPAUtil.getPrimaryKey(entidade);
+		Object id = jpaUtil.getPrimaryKey(entidade);
 		entityManager.createQuery("delete from " + entidade.getClass().getCanonicalName() + " where id = " + id)
 				.executeUpdate();
 		entityTransaction.commit();
-		entityManager.close();
 	}
 
 	public List<T> getListEntity(Class<T> entidade) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		@SuppressWarnings("unchecked")
 		List<T> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
 		entityTransaction.commit();
-		entityManager.close();
 		return retorno;
 	}
 
 	public T consultar(Class<T> entidade, Long codigo) {
-		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		T objeto = (T) entityManager.find(entidade, codigo);
 		entityTransaction.commit();
-		entityManager.close();
 		return objeto;
 	}
 

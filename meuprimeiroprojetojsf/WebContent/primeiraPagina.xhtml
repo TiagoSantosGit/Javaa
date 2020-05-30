@@ -30,12 +30,14 @@
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
 				requiredMessage="Informe nome do usuário"
-				pt:placeholder="Informe o nome"
+				onchange="alert('mudor valor')" pt:placeholder="Informe o nome"
+				valueChangeListener="#{pessoaBean.mudancaDeValor}"
 				validatorMessage="Nome tem que ter no mínimo 10 letras">
-				<f:validateLength minimum="3" maximum="67" />
+				<!--<f:validateLength minimum="3" maximum="67" /> -->
 			</h:inputText>
 			<h:outputLabel value="Sobrenome:" />
-			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
+			<h:inputText value="#{pessoaBean.pessoa.sobrenome}"
+				valueChangeListener="#{pessoaBean.mudancaDeValorSobrenome}" />
 			<h:outputLabel value="Idade:" />
 			<h:inputText value="#{pessoaBean.pessoa.idade}" />
 			<h:outputLabel value="CPF:" />
@@ -139,8 +141,10 @@
 					title="Novo">
 					<f:ajax execute="batoaNovo" render="@form" />
 				</h:commandButton>
-				<h:commandButton value="Salvar" action="#{pessoaBean.salvar}"
-					image="/resources/img/salve.ico" title="Salvar" />
+				<h:commandButton value="Salvar"
+					actionListener="#{pessoaBean.registraLog}"
+					action="#{pessoaBean.salvar}" image="/resources/img/salve.ico"
+					title="Salvar" />
 				<h:commandButton value="Remover" action="#{pessoaBean.remove}"
 					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"
 					image="/resources/img/remove.ico" title="Remover" />
@@ -167,14 +171,14 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Sobrenome</f:facet>
-				<h:outputText value="#{pessoa.sobrenome}"/>
+				<h:outputText value="#{pessoa.sobrenome}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Foto</f:facet>
 				<h:commandLink actionListener="#{pessoaBean.download}">
 					<h:graphicImage width="60" height="60"
 						value="#{pessoa.fotoIconBase64}" />
-						<f:param name="fileDownloadId" value="#{pessoa.id}"/>
+					<f:param name="fileDownloadId" value="#{pessoa.id}" />
 				</h:commandLink>
 			</h:column>
 			<h:column>
@@ -195,7 +199,8 @@
 				</h:commandLink>
 				<h:outputLabel />
 				<h:commandLink title="Excluir" action="#{pessoaBean.remove}"
-					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"
+					immediate="true">
 					<h:graphicImage value="/resources/img/delete.ico" />
 					<f:setPropertyActionListener value="#{pessoa}"
 						target="#{pessoaBean.pessoa}" />

@@ -1,12 +1,32 @@
 package br.com.cursojsf;
 
-import javax.faces.bean.ViewScoped;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -20,34 +40,22 @@ import br.com.entidades.Cidades;
 import br.com.entidades.Estados;
 import br.com.entidades.Pessoa;
 import br.com.repositor.IDaoPessoa;
-import br.com.repositor.IDaoPessoaImpl;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-
+//@ViewScoped
+//@ManagedBean(name = "pessoaBean")
 @ViewScoped
-@ManagedBean(name = "pessoaBean")
-public class PessoaBean {
+@Named(value = "pessoaBean")
+public class PessoaBean implements Serializable {
+
+	private static final long serialVersionUID = -7294913556827565378L;
+	@Inject
+	private DaoGeneric<Pessoa> daoGeneric;
+	@Inject
+	private IDaoPessoa iDaoPessoa;
+	@Inject
+	private JPAUtil jpaUtil;
 	private Pessoa pessoa = new Pessoa();
-	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
 	private BufferedReader br;
@@ -160,7 +168,7 @@ public class PessoaBean {
 			if (estado != null) {
 				pessoa.setEstados(estado);
 				@SuppressWarnings("unchecked")
-				List<Cidades> cidades = JPAUtil.getEntityManager()
+				List<Cidades> cidades = jpaUtil.getEntityManager()
 						.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 				for (Cidades cidade : cidades) {
@@ -177,7 +185,7 @@ public class PessoaBean {
 			Estados estado = pessoa.getCidades().getEstados();
 			pessoa.setEstados(estado);
 			@SuppressWarnings("unchecked")
-			List<Cidades> cidades = JPAUtil.getEntityManager()
+			List<Cidades> cidades = jpaUtil.getEntityManager()
 					.createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
 			List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
 			for (Cidades cidade : cidades) {
@@ -215,8 +223,7 @@ public class PessoaBean {
 		pessoa.setExtencao(extencao);
 	}
 
-	// converte inputstream para array de bytes
-	@SuppressWarnings("unused")
+	// converte inputStream para array de bytes
 	private byte[] getByte(InputStream is) throws IOException {
 		int len;
 		int size = 1024;
@@ -248,6 +255,21 @@ public class PessoaBean {
 		response.getOutputStream().write(pessoa.getFotoIconBase64Original());
 		response.getOutputStream().flush(); // Confirma
 		FacesContext.getCurrentInstance().getResponseComplete();
+	}
+
+	public void registraLog() {
+		System.out.println("método registraLog");
+		// Criar rotina para criação de log
+	}
+
+	public void mudancaDeValor(ValueChangeEvent evento) {
+		System.out.println("Valor antigo:" + evento.getOldValue());
+		System.out.println("Valor novo:" + evento.getNewValue());
+	}
+
+	public void mudancaDeValorSobrenome(ValueChangeEvent evento) {
+		System.out.println("Valor antigo:" + evento.getOldValue());
+		System.out.println("Valor novo:" + evento.getNewValue());
 	}
 
 	public Pessoa getPessoa() {

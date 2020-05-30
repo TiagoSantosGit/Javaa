@@ -1,29 +1,35 @@
 package br.com.cursojsf;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.dao.DaoGeneric;
 import br.com.entidades.Lancamento;
 import br.com.entidades.Pessoa;
 import br.com.repositor.IDaoLancamento;
-import br.com.repositor.IDaoLancamentoImpl;
 
+//@ViewScoped
+//@ManagedBean(name = "lancamentoBean")
 @ViewScoped
-@ManagedBean(name = "lancamentoBean")
-public class LancamentoBean {
+@Named(value = "lancamentoBean")
+public class LancamentoBean implements Serializable{
 
+	private static final long serialVersionUID = -2789380499521668015L;
+	@Inject
+	private IDaoLancamento iDaoLancamento;
+	@Inject
+	private DaoGeneric<Lancamento> daoGeneric;
 	private Lancamento lancamento = new Lancamento();
-	private DaoGeneric<Lancamento> daoGeneric = new DaoGeneric<Lancamento>();
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
-	private IDaoLancamento idaoLancamento = new IDaoLancamentoImpl();
-
+	
 	public String salvar() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
@@ -51,7 +57,7 @@ public class LancamentoBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		Pessoa pessoaUser = (Pessoa) externalContext.getSessionMap().get("usuarioLogado");
-		lancamentos = idaoLancamento.consultar(pessoaUser.getId());
+		lancamentos = iDaoLancamento.consultar(pessoaUser.getId());
 	}
 
 	public Lancamento getLancamento() {
