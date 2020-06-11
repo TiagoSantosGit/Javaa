@@ -7,6 +7,7 @@ import javax.persistence.EntityTransaction;
 
 import posjavamavenhibernate.HibernateUtil;
 
+@SuppressWarnings("unchecked")
 public class DaoGeneric<E> {
 
 	private EntityManager entityManager = HibernateUtil.getEntityManager();
@@ -18,7 +19,6 @@ public class DaoGeneric<E> {
 		transaction.commit();
 	}
 
-	@SuppressWarnings("unchecked")
 	public E pesquisar(E entidade) {
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 		E e = (E) entityManager.find(entidade.getClass(), id);
@@ -26,7 +26,9 @@ public class DaoGeneric<E> {
 	}
 
 	public E pesquisar2(Long id, Class<E> entidade) {
-		E e = (E) entityManager.find(entidade, id);
+		// E e = (E) entityManager.find(entidade, id);
+		entityManager.clear(); // limpa a entidade da memória
+		E e = (E) entityManager.createQuery("from " + entidade.getSimpleName() + " where id = " + id).getSingleResult();
 		return e;
 	}
 
@@ -38,16 +40,15 @@ public class DaoGeneric<E> {
 		return entidadeSalva;
 	}
 
-	public void deletarPoID(E entidade) {
+	public void deletarPoID(E entidade) throws Exception {
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 		EntityTransaction transaction = entityManager.getTransaction();
-		String sql = "delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id =" + id;
+		String sql = "delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id = " + id;
 		transaction.begin();
 		entityManager.createNativeQuery(sql).executeUpdate();
 		transaction.commit();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<E> listar(Class<E> entidade) {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();

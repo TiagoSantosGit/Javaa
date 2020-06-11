@@ -1,5 +1,7 @@
 package Model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,8 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class TelefoneUser {
+public class TelefoneUser implements Serializable {
 
+	private static final long serialVersionUID = 2002953861600457166L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
