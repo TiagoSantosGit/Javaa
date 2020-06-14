@@ -63,7 +63,7 @@ public class UsuarioPessoaManagedBean implements Serializable {
 		// list.remove(usuarioPessoa);
 		list.list.remove(usuarioPessoa);
 		daoGeneric.salvar(usuarioPessoa);
-		this.init();
+		this.montarGrafico();
 		// list.add(usuarioPessoa);
 		list.list.add(usuarioPessoa);
 		FacesContext.getCurrentInstance().addMessage(null,

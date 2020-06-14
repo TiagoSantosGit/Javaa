@@ -26,7 +26,7 @@ public class LazyDataTableModelUserPessoa<T> extends LazyDataModel<UsuarioPessoa
 				.getResultList();
 		setPageSize(pageSize);
 		Integer qtdRegistro = Integer.parseInt(
-				dao.getEntityManager().createQuery("select count(1)" + getSql()).getSingleResult().toString());
+			dao.getEntityManager().createQuery("select count(1)	" + getSql()).getSingleResult().toString());
 		setRowCount(qtdRegistro);
 		return list;
 	}
