@@ -17,18 +17,24 @@
 		<class>br.com.entidades.Cidades</class>
 		<properties>
 			<!-- Dados de conexão com o banco JDCB -->
+			<!-- Driver de conexão JDBC -->
 			<property name="hibernate.connection.driver_class"
 				value="org.postgresql.Driver" />
+				<!-- url do banco de dados -->
 			<property name="hibernate.connection.url"
 				value="jdbc:postgresql://localhost:5432/posjavahibernate" />
+				<!-- nome do usuario do banco -->
 			<property name="hibernate.connection.username"
 				value="postgres" />
+				<!-- senha do usuario do banco -->
 			<property name="hibernate.connection.password" value="tiago" />
 			<!-- Configurações específicas do hibernate -->
+			<!-- dialeto do hiberbate com o banco -->
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			<!-- indica que o hibernate vai atualizar as atualizações e criação de tabelas e relacionamentos no banco -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<!-- Configuração do pool c3p0 do JPA -->
 			<!-- mínimo de conexões ou portas disponíveis -->

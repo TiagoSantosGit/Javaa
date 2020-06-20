@@ -106,6 +106,7 @@ public class PessoaBean implements Serializable {
 			return "primeiraPagina.jsf";
 		}
 		return "index.jsf";
+		
 	}
 
 	public String deslogar() {

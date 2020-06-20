@@ -28,4 +28,19 @@ public class JPAUtil {
 		return factory.getPersistenceUnitUtil().getIdentifier(entity);
 	}
 
+	// na configuração normal do hibernate use o método simgletom ou seja criar
+	// metodos estáticos para ser acessado pelo sistema uma unica vez
+	// é somente uma instância
+	/*
+	 * public static EntityManagerFactory factory = null;
+	 * 
+	 * static { init(); }
+	 * 
+	 * private static void init() { try { if(fatory == null) { factory=
+	 * Persistence.createEntityManagerFactory("meuprimeiroprojetojsf"); } }catch
+	 * (Exception e) { e.printStackTrace(); } //gerenciador de entidade public
+	 * static EntityManager getEntityManager() { return
+	 * factory.createEntityManager(); // provê a parte de persistência } }
+	 */
+
 }

@@ -19,6 +19,7 @@ public class DaoGeneric<T> implements Serializable {
 	@Inject
 	private JPAUtil jpaUtil;
 
+
 	public void salvar(T entidade) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
