@@ -13,13 +13,15 @@ public class DaoUsuario<E> extends DaoGeneric<UsuarioPessoa> implements Serializ
 
 	public void removerUsuario(UsuarioPessoa pessoa) throws Exception {
 
-		String sqlDeleteFone = "delete from telefoneuser where usuariopessoa_id = " + pessoa.getId();
-		String sqlDeleteEmail = "delete from emailuser where usuariopessoa_id = " + pessoa.getId();
+		//String sqlDeleteFone = "delete from telefoneuser where usuariopessoa_id = " + pessoa.getId();
+		//String sqlDeleteEmail = "delete from emailuser where usuariopessoa_id = " + pessoa.getId();
+		String sqlDeletePessoa = "delete from UsuarioPessoa where id = " + pessoa.getId();
 		getEntityManager().getTransaction().begin();
-		getEntityManager().createNativeQuery(sqlDeleteFone).executeUpdate();
-		getEntityManager().createNativeQuery(sqlDeleteEmail).executeUpdate();
+		//getEntityManager().createNativeQuery(sqlDeleteFone).executeUpdate();
+		//getEntityManager().createNativeQuery(sqlDeleteEmail).executeUpdate();
+		getEntityManager().createQuery(sqlDeletePessoa).executeUpdate();
 		getEntityManager().getTransaction().commit();
-		super.deletarPoID(pessoa);
+		//super.deletarPoID(pessoa);
 	}
 
 	@SuppressWarnings("unchecked")

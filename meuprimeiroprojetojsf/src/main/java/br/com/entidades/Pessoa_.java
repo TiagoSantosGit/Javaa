@@ -1,26 +1,20 @@
 package br.com.entidades;
 
-import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2020-05-25T13:05:28.975-0300")
+@Generated(value="Dali", date="2020-10-20T19:54:10.665-0300")
 @StaticMetamodel(Pessoa.class)
 public class Pessoa_ {
 	public static volatile SingularAttribute<Pessoa, Long> id;
 	public static volatile SingularAttribute<Pessoa, String> nome;
 	public static volatile SingularAttribute<Pessoa, String> sobrenome;
-	public static volatile SingularAttribute<Pessoa, Integer> idade;
-	public static volatile SingularAttribute<Pessoa, Date> dataNascimento;
 	public static volatile SingularAttribute<Pessoa, String> sexo;
-	public static volatile SingularAttribute<Pessoa, Boolean> ativo;
 	public static volatile SingularAttribute<Pessoa, String> login;
 	public static volatile SingularAttribute<Pessoa, String> senha;
 	public static volatile SingularAttribute<Pessoa, String> perfilUser;
 	public static volatile SingularAttribute<Pessoa, String> nivelProgramador;
-	public static volatile SingularAttribute<Pessoa, Integer> cpf;
-	public static volatile SingularAttribute<Pessoa, Integer> tituloEleitor;
 	public static volatile SingularAttribute<Pessoa, String> cep;
 	public static volatile SingularAttribute<Pessoa, String> logradouro;
 	public static volatile SingularAttribute<Pessoa, String> complemento;

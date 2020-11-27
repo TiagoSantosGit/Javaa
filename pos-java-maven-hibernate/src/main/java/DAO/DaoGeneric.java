@@ -43,9 +43,9 @@ public class DaoGeneric<E> {
 	public void deletarPoID(E entidade) throws Exception {
 		Object id = HibernateUtil.getPrimaryKey(entidade);
 		EntityTransaction transaction = entityManager.getTransaction();
-		String sql = "delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id = " + id;
+		String sql = "delete from " + entidade.getClass().getSimpleName() + " where id = " + id;
 		transaction.begin();
-		entityManager.createNativeQuery(sql).executeUpdate();
+		entityManager.createQuery(sql).executeUpdate();
 		transaction.commit();
 	}
 
