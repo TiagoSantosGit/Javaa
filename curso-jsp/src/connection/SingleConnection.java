@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- * responsavel por fazer a conexão com o banco de dados
+ * responsavel por fazer a conexï¿½o com o banco de dados
  * 
  * @author TiagoSantos
  *

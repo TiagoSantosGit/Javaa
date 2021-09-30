@@ -104,7 +104,6 @@ public class ServletUsuario extends HttpServlet {
             e.printStackTrace();
         }
     }
-
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      *      response)
@@ -210,13 +209,13 @@ public class ServletUsuario extends HttpServlet {
                          * usuario.setContenType(contentType); } } // Fim file upload
                          */
                         daoUsuario.Salvar(usuario);
-                        request.setAttribute("msg", "Usuário gravado!");
+                        request.setAttribute("msg", "Usuï¿½rio gravado!");
                     } else {
-                        request.setAttribute("msg", "Usuário já existe com o mesmo login!");
+                        request.setAttribute("msg", "Usuï¿½rio jï¿½ existe com o mesmo login!");
                     }
                 } else {
                     daoUsuario.atualizar(usuario);
-                    request.setAttribute("msg", "Usuário atualizado!");
+                    request.setAttribute("msg", "Usuï¿½rio atualizado!");
                 }
                 request.setAttribute("user", usuario);
                 RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");

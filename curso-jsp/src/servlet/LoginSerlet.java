@@ -25,7 +25,6 @@ public class LoginSerlet extends HttpServlet {
 	public LoginSerlet() {
 		super();
 	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
