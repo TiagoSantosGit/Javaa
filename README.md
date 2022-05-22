@@ -16,6 +16,7 @@ No código está comentado as suas funções.
 > - Projetos Maven.
 > - JSF, PrimeFaces.
 > - JPA, Hibernate.
+> - GitHub Pages
 
 
 > **Nota:** Quer **aprender java até o avançado** faça o curso com o **Alex Fernando**, em [[https://www.jdevtreinamento.com.br/formacao-java-web-profissional/index.html?hsrc=cG9ydGFsamE%3D](https://www.jdevtreinamento.com.br/formacao-java-web-profissional/index.html?hsrc=cG9ydGFsamE%3D)].
