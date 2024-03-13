@@ -21,7 +21,7 @@ public interface InterfaceSpringDataUser extends CrudRepository<UsuarioSpringDat
 	@Query(value = "select p from UsuarioSpringData p where p.nome like %?1%")
 	public List<UsuarioSpringData> buscaPorNome(String nome);
 
-	@Lock(LockModeType.READ) // bloqueia o registro se alguem que atualizar o registro
+	@Lock(LockModeType.READ) // bloqueia o registro se alguem quer atualizar o registro
 	@Transactional(readOnly = true)
 	@Query(value = "select p from UsuarioSpringData p where p.nome = :paramnome")
 	public UsuarioSpringData buscaPorNomeParam(@Param("paramnome") String paramnome);

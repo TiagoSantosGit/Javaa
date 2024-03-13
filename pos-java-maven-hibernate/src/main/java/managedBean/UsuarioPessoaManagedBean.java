@@ -134,7 +134,8 @@ public class UsuarioPessoaManagedBean implements Serializable {
 		byte[] imagem = new Base64().decodeBase64(pessoa.getImagem().split("\\,")[1]);
 		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
 				.getResponse();
-		response.addHeader("Content-Disposition", "attachment; filename=donwload.png");
+		//response.addHeader("Content-Disposition", "attachment; filename=donwload.png");
+		response.setHeader("Content-Disposition", "attachment; filename=donwload.png");
 		response.setContentType("application/octet-stream");
 		response.setContentLength(imagem.length);
 		response.getOutputStream().write(imagem);

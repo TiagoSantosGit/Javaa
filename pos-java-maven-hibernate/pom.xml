@@ -73,5 +73,17 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-util</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 </project>

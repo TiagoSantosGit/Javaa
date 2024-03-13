@@ -27,12 +27,12 @@ public class FilterAutenticacao implements Filter {
     private static Connection connection2;
     private static Connection connectionMySQL;
 
-// faz alguma coisa quando a aplicação e derrubada
+// faz alguma coisa quando a aplicaï¿½ï¿½o e derrubada
     @Override
     public void destroy() {
     }
 
-// imtercepta todas as requisições
+// imtercepta todas as requisiï¿½ï¿½es
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 	    throws IOException, ServletException {
@@ -43,7 +43,7 @@ public class FilterAutenticacao implements Filter {
 	String urlParaAutenticar = req.getServletPath();
 
 	UserLogado userLogado = (UserLogado) session.getAttribute("usuario");
-	if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario não
+	if (userLogado == null && !urlParaAutenticar.equalsIgnoreCase("/pages/ServletAutenticacao")) { // usuario nï¿½o
 												       // logado
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/autenticar.jsp?url=" + urlParaAutenticar);
 	    dispatcher.forward(request, response);
@@ -54,12 +54,12 @@ public class FilterAutenticacao implements Filter {
 	System.out.println("interceptando");
     }
 
-// executa alguma coisa quando a aplicação é iniciada
+// executa alguma coisa quando a aplicaï¿½ï¿½o ï¿½ iniciada
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 	connection = ConnectionDataBase.getConnection();
-	connection2 = ConnectionDataBase2.getConnection();
-	connectionMySQL = ConnectionDataBaseMySQL.getConnection();
+	//connection2 = ConnectionDataBase2.getConnection();
+	//connectionMySQL = ConnectionDataBaseMySQL.getConnection();
     }
 
 }

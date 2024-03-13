@@ -1,3 +1,27 @@
+CREATE TABLE usuario
+(
+    id bigint NOT NULL DEFAULT nextval('usuariosequence'::regclass),
+    login text COLLATE pg_catalog."default",
+	senha text COLLATE pg_catalog."default",
+	nome text COLLATE pg_catalog."default",
+	telefone text COLLATE pg_catalog."default",
+	cep text COLLATE pg_catalog."default",
+	cidade text COLLATE pg_catalog."default",
+	fotoBase64 text COLLATE pg_catalog."default",
+	fotoBase64Miniatura text COLLATE pg_catalog."default",
+	contentTypeCurriculo text COLLATE pg_catalog."default",
+	ativo boolean,
+	sexo text COLLATE pg_catalog."default",
+    quantidadeprodu double precision,
+    precoprodu double precision,
+    CONSTRAINT usuario_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.usuario
+    OWNER to postgres;
+
 alter table usuario add column cep character varying(20);
 alter table usuario add column cidade character varying(50);
 

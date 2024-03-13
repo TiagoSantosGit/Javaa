@@ -35,11 +35,11 @@ public class RelatorioService implements Serializable {
 			String nomeRelatorioSaida, ServletContext servletContext, String tipoExportar) throws Exception {
 		/*
 		 * Cria a lista de collectionDataSource de beans que carrega os dados para o
-		 * relatório
+		 * relatï¿½rio
 		 */
 		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listaDataBeanCollection);
 
-		/* Fornece o caminho até a pasta que contem os relatórios .jasper */
+		/* Fornece o caminho atï¿½ a pasta que contem os relatï¿½rios .jasper */
 		String caminhoRelatorio = servletContext.getRealPath(FOLDER_RELATORIOS);
 		File file = new File(caminhoRelatorio + SERATOR + nomeRelatorioJasper + ".jasper");
 
@@ -52,13 +52,13 @@ public class RelatorioService implements Serializable {
 		/* Caminho para imagens */
 		hashMap.put("REPORT_PARAMETERS_IMG", caminhoRelatorio);
 
-		/* Caminho completo até o relatório compilado indicado */
+		/* Caminho completo atï¿½ o relatï¿½rio compilado indicado */
 		String caminhoArquivosJasper = caminhoRelatorio + SERATOR + nomeRelatorioJasper + ".jasper";
 
-		/* Faz o carregamento do relatório */
+		/* Faz o carregamento do relatï¿½rio */
 		JasperReport relatorioJasper = (JasperReport) JRLoader.loadObjectFromFile(caminhoArquivosJasper);
 
-		/* Gera parâmetros SUBREPORT_DIR com o caminho físico para subreport */
+		/* Gera parï¿½metros SUBREPORT_DIR com o caminho fï¿½sico para subreport */
 		caminhoSubReport_Dir = caminhoRelatorio + SERATOR;
 		hashMap.put(SUBREPORT_DIR, caminhoSubReport_Dir);
 
@@ -77,20 +77,20 @@ public class RelatorioService implements Serializable {
 			break;
 		}
 
-		/* Caminho do relatório exportado */
+		/* Caminho do relatï¿½rio exportado */
 		caminhoArquivoRelatorio = caminhoRelatorio + SERATOR + nomeRelatorioSaida + "." + tipoExportar;
 
 		/* Criar novo arquivos exporta */
 		arquivoGerado = new File(caminhoArquivoRelatorio);
 
-		/* Prepara a impressão */
+		/* Prepara a impressï¿½o */
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, impressoraJasper);
 		exporter.setParameter(JRExporterParameter.OUTPUT_FILE, arquivoGerado);
 
-		/* Executa a exportação */
+		/* Executa a exportaï¿½ï¿½o */
 		exporter.exportReport();
 
-		/* Remove o arquivo do servidor após ser feito no download */
+		/* Remove o arquivo do servidor apï¿½s ser feito no download */
 		arquivoGerado.deleteOnExit();
 
 		return caminhoArquivoRelatorio;
